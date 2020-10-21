@@ -13,6 +13,7 @@ RUN pip3 install --upgrade launchpadlib
 RUN pip3 install --upgrade setuptools
 RUN curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash -
 RUN sudo apt -y install nodejs
+
 RUN node -v
 
 LABEL author=MG8853 maintainer=TeamFelNull
