@@ -35,4 +35,4 @@ jobs:
           platforms: linux/arm64
           push: true
           tags: |
-            ghcr.io/MG8853/yolks:mariadb_${{ matrix.tag }}
+            ghcr.io/mg8853/yolks:mariadb_${{ matrix.tag }}
