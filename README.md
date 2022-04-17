@@ -8,7 +8,7 @@
 
 # JDK(Java)
 
-#### OpenJDK
+### OpenJDK
 
 * [openjdk-java8 (amd64 & aarch64)](/OpenJDK-java8)
   * `ghcr.io/mg8853/yolks:openjdk-java8`
@@ -19,7 +19,7 @@
 * [openjdk-java17 (amd64 & aarch64)](/OpenJDK-java17)
   * `ghcr.io/mg8853/yolks:openjdk-java17`
 
-#### Amazon-Corretto
+### Amazon-Corretto
 
 * [amazon-corretto-java8 (amd64 & aarch64)](/Amazon-Corretto-java8)
   * `ghcr.io/mg8853/yolks:amazon-corretto-java8`
@@ -30,7 +30,7 @@
 * [amazon-corretto-java17 (amd64 & aarch64)](/Amazon-Corretto-java17)
   * `ghcr.io/mg8853/yolks:amazon-corretto-java17`
 
-#### IBM-Semeru-Runtimes
+### IBM-Semeru-Runtimes
 
 * [ibm-semeru-runtimes-java8 (amd64 & aarch64)](/IBM-Semeru-Runtimes-java8)
   * `ghcr.io/mg8853/yolks:ibm-semeru-runtimes-java8`
@@ -41,7 +41,7 @@
 * [ibm-semeru-runtimes-java17 (amd64 & aarch64)](/IBM-Semeru-Runtimes-java17)
   * `ghcr.io/mg8853/yolks:ibm-semeru-runtimes-java17`
 
-#### Microsoft-AzulPrime
+### Microsoft-AzulPrime
 
 * [microsoft-azulprime-java8 (amd64)](/Microsoft-AzulPrime-java8/amd64)
   * `ghcr.io/mg8853/yolks_amd64:microsoft-azulprime-java8-amd64`
@@ -52,7 +52,7 @@
 * [microsoft-azulprime-java17 (amd64)](/Microsoft-AzulPrime-java17/amd64)
   * `ghcr.io/mg8853/yolks_amd64:microsoft-azulprime-java17-amd64`
 
-#### Oracle-GraalVM-EE
+### Oracle-GraalVM-EE
 
 * [oracle-graalvm-ee-java8 (amd64)](/Oracle-GraalVM-EE-java8/amd64)
   * `ghcr.io/mg8853/yolks_amd64:oracle-graalvm-ee-java8-amd64`
