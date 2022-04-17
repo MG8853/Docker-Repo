@@ -1,4 +1,4 @@
-FROM debian:buster-slim as build
+FROM --platform=$TARGETOS/$TARGETARCH debian:buster-slim as build
 
 WORKDIR /usr/local/nginx
 
@@ -20,7 +20,7 @@ RUN cp /usr/local/nginx/nginx-1.20.2/objs/ngx_stream_module.so /usr/local/nginx/
     cp /usr/local/nginx/nginx-1.20.2/objs/ngx_http_brotli_static_module.so /usr/local/nginx/modules/
 RUN cd /usr/local/nginx/ && rm -rf nginx-1.20.2 && rm -rf nginx-1.20.2.tar.gz
 
-FROM debian:buster-slim
+FROM --platform=$TARGETOS/$TARGETARCH debian:buster-slim
 
 MAINTAINER author="MG8853" maintainer="TeamFelNull"
 

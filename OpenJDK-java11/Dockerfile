@@ -1,4 +1,4 @@
-FROM openjdk:11-buster
+FROM --platform=$TARGETOS/$TARGETARCH openjdk:11-buster
 
 LABEL author="MG8853" maintainer="TeamFelNull"
 

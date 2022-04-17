@@ -1,4 +1,4 @@
-FROM debian:buster-slim
+FROM --platform=$TARGETOS/$TARGETARCH debian:buster-slim
 
 LABEL author="MG8853" maintainer="TeamFelNull"
 
