@@ -15,10 +15,12 @@ RUN cd nginx-1.20.2 && \
     --with-stream --with-stream_ssl_module --with-stream_realip_module --with-stream_ssl_preread_module \
     --with-stream=dynamic --with-compat --add-dynamic-module=/usr/local/nginx/nginx-1.20.2/ngx_brotli && \
     make && make install
-RUN cp objs/ngx_stream_module.so /usr/local/nginx/modules/ && \
-    cp objs/modules/ngx_http_brotli_filter_module.so /usr/local/nginx/modules/ && \
-    cp objs/modules/ngx_http_brotli_static_module.so /usr/local/nginx/modules/
+RUN cp /usr/local/nginx/nginx-1.20.2/objs/ngx_stream_module.so /usr/local/nginx/modules/ && \
+    cp /usr/local/nginx/nginx-1.20.2/objs/ngx_http_brotli_filter_module.so /usr/local/nginx/modules/ && \
+    cp /usr/local/nginx/nginx-1.20.2/objs/ngx_http_brotli_static_module.so /usr/local/nginx/modules/
 RUN cd /usr/local/nginx/ && rm -rf nginx-1.20.2 && rm -rf nginx-1.20.2.tar.gz
+
+FROM debian:buster-slim
 
 MAINTAINER author="MG8853" maintainer="TeamFelNull"
 
