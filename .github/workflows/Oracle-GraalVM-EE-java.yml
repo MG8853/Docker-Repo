@@ -21,8 +21,8 @@ jobs:
           - '11'
           - '17'
         arch:
-          - 'arm'
-          - 'amd'
+          - 'aarch64'
+          - 'amd64'
     steps:
       - uses: actions/checkout@v2
       - uses: docker/setup-qemu-action@v1
