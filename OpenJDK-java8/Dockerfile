@@ -1,4 +1,4 @@
-FROM openjdk:11-buster
+FROM openjdk:8-buster
 
 LABEL author="MG8853" maintainer="TeamFelNull"
 
