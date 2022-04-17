@@ -17,7 +17,6 @@ jobs:
       fail-fast: false
       matrix:
         tag:
-          - '8'
           - '11'
           - '17'
         arch:
@@ -59,3 +58,15 @@ jobs:
           push: true
           tags: |
             ghcr.io/mg8853/yolks:oracle-graalvm-ee-java${{ matrix.tag }}-amd64
+
+
+      - name: Build&Push(amd64)-Java8-is-Only-amd64
+        if: matrix.arch == 'amd64'
+        uses: docker/build-push-action@v2
+        with:
+          context: ./Oracle-GraalVM-EE-java8/amd64
+          file: ./Oracle-GraalVM-EE-java8/amd64/Dockerfile
+          platforms: linux/amd64
+          push: true
+          tags: |
+            ghcr.io/mg8853/yolks:oracle-graalvm-ee-java8-amd64
