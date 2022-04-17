@@ -35,11 +35,27 @@ jobs:
           registry: ghcr.io
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GITHUBTOKEN }}
-      - uses: docker/build-push-action@v2
+
+
+      - name: Build&Push(aarch64)
+        if: matrix.arch == 'aarch64'
+        uses: docker/build-push-action@v2
         with:
-          context: ./Oracle-GraalVM-EE-java${{ matrix.tag }}/${{ matrix.arch }}
-          file: ./Oracle-GraalVM-EE-java${{ matrix.tag }}/${{ matrix.arch }}/Dockerfile
-          platforms: linux/amd64,linux/arm64
+          context: ./Oracle-GraalVM-EE-java${{ matrix.tag }}/aarch64
+          file: ./Oracle-GraalVM-EE-java${{ matrix.tag }}/aarch64/Dockerfile
+          platforms: linux/arm64
+          push: true
+          tags: |
+            ghcr.io/mg8853/yolks:oracle-graalvm-ee-java${{ matrix.tag }}
+
+
+      - name: Build&Push(amd64)
+        if: matrix.arch == 'amd64'
+        uses: docker/build-push-action@v2
+        with:
+          context: ./Oracle-GraalVM-EE-java${{ matrix.tag }}/amd64
+          file: ./Oracle-GraalVM-EE-java${{ matrix.tag }}/amd64/Dockerfile
+          platforms: linux/amd64
           push: true
           tags: |
             ghcr.io/mg8853/yolks:oracle-graalvm-ee-java${{ matrix.tag }}
