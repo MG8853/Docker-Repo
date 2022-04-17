@@ -1,0 +1,31 @@
+{
+    "_comment": "DO NOT EDIT: FILE GENERATED AUTOMATICALLY BY PTERODACTYL PANEL - PTERODACTYL.IO",
+    "meta": {
+        "version": "PTDL_v1",
+        "update_url": null
+    },
+    "exported_at": "2022-02-27T07:05:19+09:00",
+    "name": "NginxProxy",
+    "author": "kamesuta@gmail.com",
+    "description": "Nginx\u30d7\u30ed\u30ad\u30b7(BE\u7528)",
+    "features": null,
+    "images": [
+        "ghcr.io\/numa-lab\/docker-nginx-stream:latest"
+    ],
+    "file_denylist": [],
+    "startup": "nginx -c \/home\/container\/nginx\/nginx.conf",
+    "config": {
+        "files": "{}",
+        "startup": "{\r\n    \"done\": \":\/home\/container$\"\r\n}",
+        "logs": "{}",
+        "stop": "^C"
+    },
+    "scripts": {
+        "installation": {
+            "script": "#!\/bin\/bash\r\n\r\ncd \/mnt\/server\r\n\r\nif [ ! -f nginx\/nginx.conf ]; then\r\n    echo -e \"Downloading nginx.conf\"\r\n    mkdir nginx\r\n    curl -o nginx\/nginx.conf https:\/\/raw.githubusercontent.com\/Numa-Lab\/EggNginx\/master\/nginx\/nginx.conf\r\nfi",
+            "container": "ghcr.io\/pterodactyl\/installers:alpine",
+            "entrypoint": "ash"
+        }
+    },
+    "variables": []
+}
