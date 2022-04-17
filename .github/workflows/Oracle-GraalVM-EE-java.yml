@@ -46,7 +46,7 @@ jobs:
           platforms: linux/arm64
           push: true
           tags: |
-            ghcr.io/mg8853/yolks:oracle-graalvm-ee-java${{ matrix.tag }}
+            ghcr.io/mg8853/yolks:oracle-graalvm-ee-java${{ matrix.tag }}-aarch64
 
 
       - name: Build&Push(amd64)
@@ -58,4 +58,4 @@ jobs:
           platforms: linux/amd64
           push: true
           tags: |
-            ghcr.io/mg8853/yolks:oracle-graalvm-ee-java${{ matrix.tag }}
+            ghcr.io/mg8853/yolks:oracle-graalvm-ee-java${{ matrix.tag }}-amd64
