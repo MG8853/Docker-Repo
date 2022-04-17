@@ -1,4 +1,4 @@
-name: build mariadb
+name: build ubuntu
 on:
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -6,16 +6,16 @@ on:
     branches:
       - master
     paths:
-      - MariaDB-Arm/**
+      - ubuntu/**
 jobs:
   push:
-    name: "yolks:mariadb_${{ matrix.tag }}"
+    name: "yolks:ubuntu_${{ matrix.tag }}"
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
         tag:
-          - '10.7'
+          - '20.04'
     steps:
       - uses: actions/checkout@v2
       - uses: docker/setup-qemu-action@v1
@@ -30,9 +30,9 @@ jobs:
           password: ${{ secrets.GITHUBTOKEN }}
       - uses: docker/build-push-action@v2
         with:
-          context: ./MariaDB-Arm
-          file: ./MariaDB-Arm/Dockerfile
+          context: ./ubuntu
+          file: ./ubuntu/Dockerfile
           platforms: linux/amd64,linux/arm64
           push: true
           tags: |
-            ghcr.io/Docker-Repo/yolks:mariadb_${{ matrix.tag }}
+            ghcr.io/Docker-Repo/yolks:ubuntu_${{ matrix.tag }}
