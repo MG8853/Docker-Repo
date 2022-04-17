@@ -12,8 +12,10 @@ RUN apt-get update -y \
     ca-certificates openssl tar sqlite fontconfig tzdata iproute2
 
 RUN cd /srv && \
-    wget --load-cookies /tmp/cookies.txt "https://docs.google.com/uc?export=download&confirm=$(wget --quiet --save-cookies /tmp/cookies.txt --keep-session-cookies --no-check-certificate 'https://docs.google.com/uc?export=download&id=1j-68f-SbGKvexcOlIjja2JHUVmqwDOO2' -O- | sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')&id=1j-68f-SbGKvexcOlIjja2JHUVmqwDOO2" -O graalvm-ee-java17-linux-aarch64-22.0.0.2.tar.gz && rm -rf /tmp/cookies.txt
-RUN tar -xzf graalvm-ee-* && mkdir jvm && mv /srv/graalvm-ee-*/* /srv/jvm && rm -fr graalvm-ee-*
+    wget --load-cookies /tmp/cookies.txt "https://docs.google.com/uc?export=download&confirm=$(wget --quiet --save-cookies /tmp/cookies.txt --keep-session-cookies --no-check-certificate \
+    'https://docs.google.com/uc?export=download&id=1j-68f-SbGKvexcOlIjja2JHUVmqwDOO2' -O- | \
+    sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')&id=1j-68f-SbGKvexcOlIjja2JHUVmqwDOO2" -O graalvm-ee.tar.gz && rm -rf /tmp/cookies.txt && \
+    tar -xzvf graalvm-ee.tar.gz --strip-components 1 && rm graalvm-ee.tar.gz
 
 ENV PATH=/srv/jvm/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
 ENV JAVA_HOME=/srv/jvm
