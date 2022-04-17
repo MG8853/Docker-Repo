@@ -17,6 +17,7 @@ jobs:
       fail-fast: false
       matrix:
         tag:
+          - '8'
           - '11'
           - '17'
         arch:
@@ -36,8 +37,8 @@ jobs:
           password: ${{ secrets.GITHUBTOKEN }}
 
 
-      - name: Build&Push(aarch64)
-        if: matrix.arch == 'aarch64'
+      - name: Build&Push(aarch64)-Java17
+        if: matrix.arch == 'aarch64' && matrix.tag == '17'
         uses: docker/build-push-action@v2
         with:
           context: ./Oracle-GraalVM-EE-java${{ matrix.tag }}/aarch64
@@ -46,10 +47,30 @@ jobs:
           push: true
           tags: |
             ghcr.io/mg8853/yolks:oracle-graalvm-ee-java${{ matrix.tag }}-aarch64
+      - name: Build&Push(amd64)-Java17
+        if: matrix.arch == 'amd64' && matrix.tag == '17'
+        uses: docker/build-push-action@v2
+        with:
+          context: ./Oracle-GraalVM-EE-java${{ matrix.tag }}/amd64
+          file: ./Oracle-GraalVM-EE-java${{ matrix.tag }}/amd64/Dockerfile
+          platforms: linux/amd64
+          push: true
+          tags: |
+            ghcr.io/mg8853/yolks:oracle-graalvm-ee-java${{ matrix.tag }}-amd64
 
 
-      - name: Build&Push(amd64)
-        if: matrix.arch == 'amd64'
+      - name: Build&Push(aarch64)-Java11
+        if: matrix.arch == 'aarch64' && matrix.tag == '11'
+        uses: docker/build-push-action@v2
+        with:
+          context: ./Oracle-GraalVM-EE-java${{ matrix.tag }}/aarch64
+          file: ./Oracle-GraalVM-EE-java${{ matrix.tag }}/aarch64/Dockerfile
+          platforms: linux/arm64
+          push: true
+          tags: |
+            ghcr.io/mg8853/yolks:oracle-graalvm-ee-java${{ matrix.tag }}-aarch64
+      - name: Build&Push(amd64)-Java11
+        if: matrix.arch == 'amd64' && matrix.tag == '11'
         uses: docker/build-push-action@v2
         with:
           context: ./Oracle-GraalVM-EE-java${{ matrix.tag }}/amd64
@@ -61,12 +82,12 @@ jobs:
 
 
       - name: Build&Push(amd64)-Java8-is-Only-amd64
-        if: matrix.arch == 'amd64'
+        if: matrix.arch == 'amd64' && matrix.tag == '8'
         uses: docker/build-push-action@v2
         with:
-          context: ./Oracle-GraalVM-EE-java8/amd64
-          file: ./Oracle-GraalVM-EE-java8/amd64/Dockerfile
+          context: ./Oracle-GraalVM-EE-java${{ matrix.tag }}/amd64
+          file: ./Oracle-GraalVM-EE-java${{ matrix.tag }}/amd64/Dockerfile
           platforms: linux/amd64
           push: true
           tags: |
-            ghcr.io/mg8853/yolks:oracle-graalvm-ee-java8-amd64
+            ghcr.io/mg8853/yolks:oracle-graalvm-ee-java${{ matrix.tag }}-amd64
