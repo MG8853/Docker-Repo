@@ -1,4 +1,4 @@
-FROM mcr.microsoft.com/java/jdk:11-zulu-debian9
+FROM azul/prime:8
 
 LABEL author="MG8853" maintainer="TeamFelNull"
 
