@@ -1,4 +1,6 @@
-#Arm版はありません
+#Arm版はありません。
+
+#使えないよ！注意！
 
 Dockerの一覧表示
 docker images
