@@ -30,8 +30,8 @@ jobs:
           password: ${{ secrets.GITHUBTOKEN }}
       - uses: docker/build-push-action@v2
         with:
-          context: ./ubuntu
-          file: ./ubuntu/Dockerfile
+          context: ./ubuntu-${{ matrix.tag }}
+          file: ./ubuntu-${{ matrix.tag }}/Dockerfile
           platforms: linux/amd64,linux/arm64
           push: true
           tags: |
