@@ -11,7 +11,7 @@ RUN apt-get update -y \
     && apt-get install -y sudo wget git curl unzip git build-essential \
     ca-certificates openssl tar sqlite fontconfig tzdata iproute2
 
-RUN cd /srv && \
+RUN cd /srv && mkdir jvm && cd jvm && \
     wget --load-cookies /tmp/cookies.txt "https://docs.google.com/uc?export=download&confirm=$(wget --quiet --save-cookies /tmp/cookies.txt --keep-session-cookies --no-check-certificate \
     'https://docs.google.com/uc?export=download&id=1ivv2fkCv57IC5pjaUI-1W26H48TIL7uo' -O- | \
     sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')&id=1ivv2fkCv57IC5pjaUI-1W26H48TIL7uo" -O graalvm-ee.tar.gz && rm -rf /tmp/cookies.txt && \
