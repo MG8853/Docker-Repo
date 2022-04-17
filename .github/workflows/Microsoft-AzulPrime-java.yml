@@ -32,11 +32,15 @@ jobs:
           registry: ghcr.io
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GITHUBTOKEN }}
-      - uses: docker/build-push-action@v2
+
+
+      - name: Build&Push(amd64)
+        if: matrix.arch == 'amd64'
+        uses: docker/build-push-action@v2
         with:
-          context: ./Microsoft-AzulPrime-java${{ matrix.tag }}
-          file: ./Microsoft-AzulPrime-java${{ matrix.tag }}/Dockerfile
-          platforms: linux/amd64,linux/arm64
+          context: ./Microsoft-AzulPrime-java${{ matrix.tag }}/amd64
+          file: ./Microsoft-AzulPrime-java${{ matrix.tag }}/amd64/Dockerfile
+          platforms: linux/amd64
           push: true
           tags: |
-            ghcr.io/mg8853/yolks:microsoft-azulprime-java${{ matrix.tag }}
+            ghcr.io/mg8853/yolks:microsoft-azulprime-java${{ matrix.tag }}-amd64

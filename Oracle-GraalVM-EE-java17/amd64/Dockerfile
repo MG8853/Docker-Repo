@@ -1,4 +1,4 @@
-FROM --platform=$TARGETOS/$TARGETARCH ubuntu:20.04
+FROM --platform=linux/amd64 ubuntu:20.04
 
 LABEL author="MG8853" maintainer="TeamFelNull"
 

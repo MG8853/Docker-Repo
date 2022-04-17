@@ -1,4 +1,4 @@
-FROM --platform=$TARGETOS/$TARGETARCH azul/prime:11
+FROM --platform=linux/amd64 azul/prime:8
 
 LABEL author="MG8853" maintainer="TeamFelNull"
 
