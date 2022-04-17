@@ -11,7 +11,7 @@ on:
       - Amazon-Corretto-java17/**
 jobs:
   push:
-    name: "yolks:ubuntu_${{ matrix.tag }}"
+    name: "yolks:amazon-corretto-java${{ matrix.tag }}"
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false

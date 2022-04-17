@@ -11,7 +11,7 @@ on:
       - Microsoft-AzulPrime-java17/**
 jobs:
   push:
-    name: "yolks:ubuntu_${{ matrix.tag }}"
+    name: "yolks:microsoft-azulprime-java${{ matrix.tag }}"
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
