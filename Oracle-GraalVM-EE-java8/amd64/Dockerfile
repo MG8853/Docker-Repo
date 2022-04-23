@@ -14,6 +14,7 @@ RUN apt-get update -y \
 RUN cd /srv && mkdir jvm && cd jvm && \
     curl https://api.github.com/repos/graalvm/graalvm-ce-builds/releases/tags/vm-21.3.1 | \
     grep "browser_download_url.*.gz" | cut -d : -f 2,3 | tr -d \" | \
+    grep linux | \
     grep -v sha256 | \
     grep amd64 | \
     grep java8 | \
