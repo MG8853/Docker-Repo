@@ -12,13 +12,9 @@ RUN apt-get update -y \
     ca-certificates openssl tar sqlite fontconfig tzdata iproute2
 
 RUN cd /srv && mkdir jvm && cd jvm && \
-    curl https://api.github.com/repos/graalvm/graalvm-ce-builds/releases/tags/vm-21.3.1 | \
-    grep "browser_download_url.*.gz" | cut -d : -f 2,3 | tr -d \" | \
-    grep linux | \
-    grep -v sha256 | \
-    grep amd64 | \
-    grep java8 | \
-    wget -O graalvm-ee.tar.gz -i - && \
+    wget --load-cookies /tmp/cookies.txt "https://docs.google.com/uc?export=download&confirm=$(wget --quiet --save-cookies /tmp/cookies.txt --keep-session-cookies --no-check-certificate \
+    'https://docs.google.com/uc?export=download&id=1iyHZ1jgjuFmZTYgSV7Q0A68PzfrenAAO' -O- | \
+    sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')&id=1iyHZ1jgjuFmZTYgSV7Q0A68PzfrenAAO" -O graalvm-ee.tar.gz && rm -rf /tmp/cookies.txt && \
     tar -xzvf graalvm-ee.tar.gz --strip-components 1 && rm graalvm-ee.tar.gz
 
 ENV PATH=/srv/jvm/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
