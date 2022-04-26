@@ -11,7 +11,7 @@ RUN apt-get update && \
     apt-get -y install gcc build-essential libpcre3 libpcre3-dev libssl-dev zlib1g-dev redis-server
 RUN apt-get -y install php8.0 php8.0-cli php8.0-gd php8.0-mysql php8.0-pdo php8.0-mbstring  \
     php8.0-tokenizer php8.0-bcmath php8.0-xml php8.0-fpm php8.0-curl php8.0-zip php8.0-common  \
-    php8.0-intl php8.0-opcache php8.0-readline php8.0-xsl php8.0-bz2 php8.0-imagick
+    php8.0-intl php8.0-opcache php8.0-readline php8.0-xsl php8.0-bz2 php8.0-imagick php8.0-dev
 
 WORKDIR /usr/local/nginx
 
