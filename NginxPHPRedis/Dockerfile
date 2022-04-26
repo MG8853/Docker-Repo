@@ -1,4 +1,4 @@
-FROM --platform=$TARGETOS/$TARGETARCH ubuntu:20.04
+FROM ubuntu:20.04
 
 LABEL author="MG8853" maintainer="TeamFelNull"
 
@@ -11,7 +11,7 @@ RUN apt-get update && apt-get -y upgrade && \
     LC_ALL=C.UTF-8 add-apt-repository -y ppa:ondrej/php && add-apt-repository -y ppa:chris-lea/redis-server && \
     apt-get update && apt-get -y upgrade && \
     apt-get -y install gcc build-essential libpcre3 libpcre3-dev libssl-dev zlib1g-dev redis-server && \
-    apt-get -y install php8.0 php8.0-{cli,gd,mysql,pdo,mbstring,tokenizer,bcmath,xml,fpm,curl,zip,common,gmp,intl,xmlrpc,soap}
+    apt-get -y install php8.0 php8.0-{cli,gd,mysql,pdo,mbstring,tokenizer,bcmath,xml,fpm,curl,zip}
 
 WORKDIR /usr/local/nginx
 RUN wget https://nginx.org/download/nginx-1.20.2.tar.gz && \
