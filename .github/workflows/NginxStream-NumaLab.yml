@@ -9,7 +9,7 @@ on:
       - NginxStream-NumaLab/**
 jobs:
   push:
-    name: "yolks:eggnginx-numalab"
+    name: "yolks:nginxstream-numaLab"
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
