@@ -6,6 +6,7 @@ ENV DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get update && apt-get -y upgrade && \
     apt-get -y install software-properties-common curl apt-transport-https ca-certificates gnupg tar unzip git wget && \
+    LC_ALL=C.UTF-8 add-apt-repository -y ppa:ondrej/php && add-apt-repository -y ppa:chris-lea/redis-server && \
     apt-get -y install gcc build-essential libpcre3 libpcre3-dev libssl-dev zlib1g-dev redis-server && \
     apt-get -y install php8.0 php8.0-{cli,gd,mysql,pdo,mbstring,tokenizer,bcmath,xml,fpm,curl,zip,common,gmp,intl,xmlrpc,soap}
 
