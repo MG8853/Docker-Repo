@@ -1,4 +1,4 @@
-name: build EggNginx-NumaLab
+name: build NginxStream-NumaLab
 on:
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -6,7 +6,7 @@ on:
     branches:
       - master
     paths:
-      - EggNginx-NumaLab/**
+      - NginxStream-NumaLab/**
 jobs:
   push:
     name: "yolks:eggnginx-numalab"
@@ -27,9 +27,9 @@ jobs:
           password: ${{ secrets.GITHUBTOKEN }}
       - uses: docker/build-push-action@v2
         with:
-          context: ./EggNginx-NumaLab
-          file: ./EggNginx-NumaLab/Dockerfile
+          context: ./NginxStream-NumaLab
+          file: ./NginxStream-NumaLab/Dockerfile
           platforms: linux/amd64,linux/arm64
           push: true
           tags: |
-            ghcr.io/mg8853/yolks:eggnginx-numalab
+            ghcr.io/mg8853/yolks:nginxstream-numaLab
