@@ -4,8 +4,6 @@ LABEL author="MG8853" maintainer="TeamFelNull"
 
 ENV DEBIAN_FRONTEND=noninteractive
 
-RUN perl -p -i.bak -e 's%(deb(?:-src|)\s+)https?://(?!archive.canonical.com|security.ubuntu.com)[^\s]+%$1http://ftp.udx.icscoe.jp/Linux/ubuntu/%' /etc/apt/sources.list
-
 RUN apt-get update && apt-get -y upgrade && \
     apt-get -y install software-properties-common curl apt-transport-https ca-certificates gnupg tar unzip git wget
 RUN add-apt-repository -y ppa:ondrej/php && add-apt-repository -y ppa:chris-lea/redis-server
