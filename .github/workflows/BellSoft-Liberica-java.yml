@@ -92,7 +92,7 @@ jobs:
           tags: |
             ghcr.io/mg8853/yolks_aarch64:bellsoft-liberica-java${{ matrix.tag }}-aarch64
       - name: Build&Push(amd64)-Java8
-        if: matrix.arch == 'amd64' && matrix.tag == '11'
+        if: matrix.arch == 'amd64' && matrix.tag == '8'
         uses: docker/build-push-action@v2
         with:
           context: ./BellSoft-Liberica-java${{ matrix.tag }}/amd64
