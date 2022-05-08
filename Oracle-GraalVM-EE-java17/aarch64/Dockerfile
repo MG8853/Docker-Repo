@@ -9,7 +9,7 @@ ENV LANG C.UTF-8
 ENV DEBIAN_FRONTEND=noninteractive
 RUN apt-get update -y \
     && apt-get install -y sudo wget git curl unzip git build-essential \
-    ca-certificates openssl tar sqlite fontconfig tzdata iproute2
+    ca-certificates openssl tar sqlite3 fontconfig tzdata iproute2
 
 RUN cd /srv && mkdir jvm && cd jvm && \
     wget --load-cookies /tmp/cookies.txt "https://docs.google.com/uc?export=download&confirm=$(wget --quiet --save-cookies /tmp/cookies.txt --keep-session-cookies --no-check-certificate \

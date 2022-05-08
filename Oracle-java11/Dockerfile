@@ -5,7 +5,7 @@ LABEL author="MG8853" maintainer="TeamFelNull"
 RUN useradd -d /home/container -m container
 
 RUN yum update -y \
-    && yum install -y sudo wget git curl unzip tar tzdata iproute2 sqlite fontconfig openssl ca-certificates
+    && yum install -y sudo wget git curl unzip tar tzdata iproute2 sqlite3 fontconfig openssl ca-certificates
 
 USER container
 ENV USER=container HOME=/home/container

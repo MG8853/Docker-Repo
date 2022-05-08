@@ -1,11 +1,10 @@
-FROM --platform=linux/amd64 azul/prime:8
+FROM --platform=linux/arm64 bellsoft/liberica-openjdk-debian:11-aarch64
 
 LABEL author="MG8853" maintainer="TeamFelNull"
 
 RUN useradd -d /home/container -m container
 
 ENV LANG C.UTF-8
-
 
 ENV DEBIAN_FRONTEND=noninteractive
 ##useradd -d /home/container -m container &&
