@@ -14,16 +14,18 @@ RUN cd / && \
 
 ENV LD_LIBRARY_PATH=/libtorch/lib
 
-RUN curl -s https://api.github.com/repos/VOICEVOX/voicevox_engine/releases/latest \
+RUN cd / && \
+    curl -s https://api.github.com/repos/VOICEVOX/voicevox_engine/releases/latest \
     | grep "browser_download_url.*linux-cpu.7z.001" \
     | cut -d : -f 2,3 \
     | tr -d \" \
     | wget -qi -  \
-    && mv linux-cpu.7z.001 linux-cpu.7z \
-    && 7z x linux-cpu.7z \
-    && mv linux-cpu voicevox_core \
-    && mv voicevox_core/libcore.so voicevox_core/libcore.so.disable \
-    && mv voicevox_core/libcore_cpu_x64.so voicevox_core/libcore.so
+    && mv /linux-cpu.7z.001 /linux-cpu.7z
+RUN cd / && \
+    7z x /linux-cpu.7z \
+    && mv /linux-cpu /voicevox_core \
+    && rm -fr /voicevox_core/libcore.so \
+    && mv /voicevox_core/libcore_cpu_x64.so /voicevox_core/libcore.so
 
 ENV VOICEVOX_CORE="/voicevox_core/libcore.so"
 
