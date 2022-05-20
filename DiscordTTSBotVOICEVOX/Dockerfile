@@ -45,16 +45,3 @@ WORKDIR /home/container
 COPY entrypoint.sh /entrypoint.sh
 
 CMD ["/bin/bash", "/entrypoint.sh"]
-
-curl -s \
-    -X POST \
-    "https://11a184df09e1.ap.ngrok.io/audio_query?speaker=2"\
-    --get --data-urlencode text@text.txt \
-    > query.json
-
-curl -s \
-    -H "Content-Type: application/json" \
-    -X POST \
-    -d @query.json \
-    "https://11a184df09e1.ap.ngrok.io/synthesis?speaker=2" \
-    > audio.wav
