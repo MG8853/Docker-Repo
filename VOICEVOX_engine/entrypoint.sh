@@ -4,8 +4,7 @@ sleep 1
 
 cd /home/container
 
-node -v
-npm -v
+python --version
 
 # Replace Startup Variables
 MODIFIED_STARTUP=`eval echo $(echo ${STARTUP} | sed -e 's/{{/${/g' -e 's/}}/}/g')`
