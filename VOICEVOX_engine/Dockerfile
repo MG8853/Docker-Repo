@@ -15,9 +15,9 @@ RUN cd / && \
 ENV LD_LIBRARY_PATH=/libtorch/lib
 
 RUN cd / && \
-    wget https://github.com/microsoft/onnxruntime/releases/download/v1.11.1/onnxruntime-linux-x64-1.11.1.tgz && \
-    tar xzf onnxruntime-linux-x64-1.11.1.tgz && \
-    mv onnxruntime-linux-x64-1.11.1 onnxruntime
+    wget https://github.com/microsoft/onnxruntime/releases/download/v1.10.0/onnxruntime-linux-x64-1.10.0.tgz && \
+    tar xzf onnxruntime-linux-x64-1.10.0.tgz && \
+    mv onnxruntime-linux-x64-1.10.0 onnxruntime
 
 ENV DYLD_LIBRARY_PATH=/onnxruntime/lib
 
