@@ -18,7 +18,7 @@ WORKDIR /usr/local/nginx
 RUN wget https://nginx.org/download/nginx-1.20.2.tar.gz && \
     tar -zxvf nginx-1.20.2.tar.gz && \
     cd nginx-1.20.2
-RUN cd /usr/local/nginx/nginx-1.20.2/ngx_brotli && git submodule update --init && cd /usr/local/nginx/nginx-1.20.2 && \
+RUN cd /usr/local/nginx/nginx-1.20.2 && \
     ./configure --prefix=/usr/local/nginx --user=container --with-http_ssl_module --with-ipv6 --with-threads \
     --with-stream --with-stream_ssl_module --with-stream_realip_module --with-stream_ssl_preread_module \
     --with-stream=dynamic --with-compat && \
