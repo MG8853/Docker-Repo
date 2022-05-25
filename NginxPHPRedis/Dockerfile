@@ -21,7 +21,7 @@ RUN wget https://nginx.org/download/nginx-1.20.2.tar.gz && \
     git clone https://github.com/google/ngx_brotli.git
 RUN cd /usr/local/nginx/nginx-1.20.2/ngx_brotli && git submodule update --init && cd /usr/local/nginx/nginx-1.20.2 && \
     ./configure --prefix=/usr/local/nginx --user=container --with-http_ssl_module --with-ipv6 --with-threads \
-    --with-stream --with-stream_ssl_module --with-stream_realip_module --with-stream_ssl_preread_module \
+    --with-stream --with-ngx_http_v2_module --with-stream_ssl_module --with-stream_realip_module --with-stream_ssl_preread_module \
     --with-stream=dynamic --with-compat --add-dynamic-module=/usr/local/nginx/nginx-1.20.2/ngx_brotli && \
     make && make install
 RUN cp /usr/local/nginx/nginx-1.20.2/objs/ngx_stream_module.so /usr/local/nginx/modules/ && \
