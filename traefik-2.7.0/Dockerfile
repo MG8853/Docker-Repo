@@ -8,7 +8,7 @@ ENV DEBIAN_FRONTEND=noninteractive
 ##useradd -d /home/container -m container &&
 RUN apt-get update -y \
     && apt-get install -y sudo wget git curl unzip git build-essential \
-    ca-certificates openssl tar sqlite fontconfig tzdata iproute2
+    ca-certificates openssl tar sqlite fontconfig tzdata iproute2 jq
 
 RUN set -ex; \
 	Arch="$(uname -m)"; \
