@@ -1,0 +1,18 @@
+#! /bin/sh
+#
+# Created by configure
+
+CFLAGS="-pipe -g -O2 -fdebug-prefix-map=/home/container/apache2/src=. -fstack-protector-strong -Wformat -Werror=format-security"; export CFLAGS
+CPPFLAGS="-Wdate-time -D_FORTIFY_SOURCE=2"; export CPPFLAGS
+LDFLAGS="-Wl,--as-needed -Wl,-Bsymbolic-functions -Wl,-z,relro"; export LDFLAGS
+"./configure" \
+"--build=x86_64-linux-gnu" \
+"--prefix=/home/container/apache2" \
+"--enable-mods-shared=reallyall" \
+"--enable-mpms-shared=all" \
+"--enable-pie" \
+"CFLAGS=-pipe -g -O2 -fdebug-prefix-map=/home/container/apache2/src=. -fstack-protector-strong -Wformat -Werror=format-security" \
+"CPPFLAGS=-Wdate-time -D_FORTIFY_SOURCE=2" \
+"LDFLAGS=-Wl,--as-needed -Wl,-Bsymbolic-functions -Wl,-z,relro" \
+"build_alias=x86_64-linux-gnu" \
+"$@"
