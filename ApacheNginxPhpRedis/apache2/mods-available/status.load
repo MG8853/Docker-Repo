@@ -1,0 +1,1 @@
+LoadModule status_module /home/container/apache2/modules/mod_status.so

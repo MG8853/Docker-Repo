@@ -1,0 +1,11 @@
+[Sat Jun 18 08:28:16.909901 2022] [mpm_event:notice] [pid 1176849:tid 140240236395584] AH00489: Apache/2.4.41 (Ubuntu) configured -- resuming normal operations
+[Sat Jun 18 08:28:16.910519 2022] [core:notice] [pid 1176849:tid 140240236395584] AH00094: Command line: '/usr/sbin/apache2'
+[Sat Jun 18 08:28:20.382516 2022] [mpm_event:notice] [pid 1176849:tid 140240236395584] AH00491: caught SIGTERM, shutting down
+[Sat Jun 18 08:28:20.419339 2022] [mpm_prefork:notice] [pid 1178597] AH00163: Apache/2.4.41 (Ubuntu) configured -- resuming normal operations
+[Sat Jun 18 08:28:20.419384 2022] [core:notice] [pid 1178597] AH00094: Command line: '/usr/sbin/apache2'
+[Sat Jun 18 08:28:20.714786 2022] [mpm_prefork:notice] [pid 1178597] AH00169: caught SIGTERM, shutting down
+[Sat Jun 18 08:28:20.764457 2022] [mpm_prefork:notice] [pid 1178688] AH00163: Apache/2.4.41 (Ubuntu) configured -- resuming normal operations
+[Sat Jun 18 08:28:20.764477 2022] [core:notice] [pid 1178688] AH00094: Command line: '/usr/sbin/apache2'
+[Sat Jun 18 08:34:03.089729 2022] [mpm_prefork:notice] [pid 1178688] AH00169: caught SIGTERM, shutting down
+[Sat Jun 18 08:34:03.140936 2022] [mpm_prefork:notice] [pid 1179249] AH00163: Apache/2.4.41 (Ubuntu) OpenSSL/1.1.1f configured -- resuming normal operations
+[Sat Jun 18 08:34:03.140963 2022] [core:notice] [pid 1179249] AH00094: Command line: '/usr/sbin/apache2'

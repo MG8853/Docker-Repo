@@ -1,0 +1,108 @@
+Setup
+=====
+
+The scripts apache2ctl, a2enmod, a2ensite, ... and the init script have some
+support for handling multiple instances of apache2 running on the same machine.
+
+The basic idea is to copy /home/container/apache2 to /home/container/apache2-xxx. An example script
+that demonstrates what else needs to be done can be found in
+/home/container/apache/doc/apache2/examples/setup-instance. Use with:
+
+	sh /home/container/apache/doc/apache2/examples/setup-instance xxx
+
+Adjust the configuration in /home/container/apache2-xxx, especially the listen ports in
+ports.conf and in the virtual host directives in
+/home/container/apache2-xxx/sites-enabled/*.
+
+You can then use a2enmod-xxx, apache2ctl-xxx, ... as usual, and they
+will affect the new instance of apache2.
+
+If you use systemd, the service name of your new instance is
+"apache2@xxx.service". Otherwise the script installed an init script
+named /home/container/apache2/init.d/apache2-xxx.
+
+To start the new apache2 instance on boot, use
+- if you use systemd, run:
+	systemctl enable apache2@xxx
+- if you use sysv-init with dependency based boot sequence (the default):
+  If you don't have ssl keys with passphrases, you may want to set
+  'X-Interactive: false' in /home/container/apache2/init.d/apache2-xxx to reduce boot time.
+  Then execute:
+	insserv apache2-xxx
+- otherwise:
+	ln -s ../init.d/apache2-xxx /home/container/apache2/rc2.d/S80apache2-xxx
+
+To make 'apache2ctl-xxx status' work, you need to set APACHE_STATUSURL in
+/home/container/apache2-xxx/envvars.
+
+
+Upgrades
+========
+
+Since only the configuration files in /home/container/apache2 are in the package, the
+configuration of other instances won't change if the default configuration
+changes.  Possibly ways to deal with this are:
+
+- Use symlinks to the files in /home/container/apache2 where possible instead of copying
+  the files.
+- Don't modify /home/container/apache2 at all but use it to track the default
+  configuration. You can then merge the changes into the /home/container/apache2-xxx dirs.
+  It may be a good idea to use a version control system for /home/container/apache2 to
+  keep track of the changes. See the package etckeeper for keeping the whole
+  /home/container dir under version control.
+  An advanced scheme may be for every /home/container/apache2* dir to be a separate git
+  repository so that you can easily pull/push changes from one dir to another.
+
+
+Package removal
+===============
+
+The Apache 2 package will only remove the default configuration files and
+directories.
+
+
+htcacheclean service
+====================
+
+The apache-htcacheclean service can be handled in the same way as the
+main apache2 script. You can create an
+'apache-htcacheclean@instance.service' service under systemd or you can
+copy /home/container/apache2/init.d/apache-htcacheclean as
+/home/container/apache2/init.d/apache-htcacheclean-xxx under SystemV.
+
+The parameters of the service can be customized with
+/home/container/apache2/default/apache-htcacheclean-xxx (that is created by the
+setup-instance helper script).
+
+
+Environment variables
+=====================
+
+The following environment variables can be used to influence many scripts.  The
+default apache2 configuration will make use of them, too. Most can be set in
+/home/container/apache2-xxx/envvars. Variables set in /home/container/apache2-xxx/envvars must be
+exported.
+
+variable		default value
+--------		-------------
+APACHE_CONFDIR		/home/container/apache2         or /home/container/apache2-xxx
+APACHE_ENVVARS		$APACHE_CONFDIR/envvars
+APACHE_HTTPD		/usr/sbin/apache2
+APACHE_ARGUMENTS	empty if $APACHE_CONFDIR = /home/container/apache2
+			"-d $APACHE_CONFDIR" otherwise
+
+APACHE_RUN_USER		www-data
+APACHE_RUN_GROUP	www-data
+
+APACHE_PID_FILE         /home/container/apache/run/apache2/apache2.pid or /home/container/apache/run/apache2-xxx/apache2.pid
+APACHE_RUN_DIR		/home/container/apache/run/apache2     or /home/container/apache/run/apache2-xxx
+APACHE_LOCK_DIR		/home/container/apache/lock/apache2    or /home/container/apache/lock/apache2-xxx
+APACHE_LOG_DIR		/home/container/apache/log     or /home/container/apache/log-xxx
+
+APACHE_MODS_AVAILABLE	$APACHE_CONFDIR/mods-available
+APACHE_MODS_ENABLED	$APACHE_CONFDIR/mods-enabled
+APACHE_SITES_AVAILABLE	$APACHE_CONFDIR/sites-available
+APACHE_SITES_ENABLED	$APACHE_CONFDIR/sites-enabled
+
+APACHE_LYNX		www-browser -dump
+APACHE_STATUSURL	http://localhost:80/server-status

@@ -1,0 +1,2 @@
+# Depends: mime
+LoadModule asis_module /home/container/apache2/modules/mod_asis.so

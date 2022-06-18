@@ -1,0 +1,1 @@
+LoadModule dumpio_module /home/container/apache2/modules/mod_dumpio.so

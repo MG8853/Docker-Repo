@@ -1,0 +1,1 @@
+LoadModule macro_module /home/container/apache2/modules/mod_macro.so

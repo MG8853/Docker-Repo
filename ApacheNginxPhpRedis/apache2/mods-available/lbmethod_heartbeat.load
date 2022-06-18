@@ -1,0 +1,2 @@
+# Depends: proxy_balancer
+LoadModule lbmethod_heartbeat_module /home/container/apache2/modules/mod_lbmethod_heartbeat.so

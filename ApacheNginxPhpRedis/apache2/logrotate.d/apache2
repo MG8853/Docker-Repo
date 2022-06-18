@@ -1,0 +1,20 @@
+/home/container/apache2/log/*.log {
+	daily
+	missingok
+	rotate 14
+	compress
+	delaycompress
+	notifempty
+	create 640 root adm
+	sharedscripts
+	postrotate
+                if invoke-rc.d apache2 status > /dev/null 2>&1; then \
+                    invoke-rc.d apache2 reload > /dev/null 2>&1; \
+                fi;
+	endscript
+	prerotate
+		if [ -d /home/container/apache2/logrotate.d/httpd-prerotate ]; then \
+			run-parts /home/container/apache2/logrotate.d/httpd-prerotate; \
+		fi; \
+	endscript
+}
