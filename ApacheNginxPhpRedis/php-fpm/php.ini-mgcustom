@@ -919,24 +919,24 @@ default_socket_timeout = 60
 ;   extension folders as well as the separate PECL DLL download (PHP 5+).
 ;   Be sure to appropriately set the extension_dir directive.
 ;
-extension=bz2
-extension=curl
+;extension=bz2
+;extension=curl
 ;extension=ffi
 ;extension=ftp
 ;extension=fileinfo
-extension=gd
-extension=gettext
-extension=gmp
-extension=intl
+;extension=gd
+;extension=gettext
+;extension=gmp
+;extension=intl
 ;extension=imap
 ;extension=ldap
-extension=mbstring
+;extension=mbstring
 ;extension=exif      ; Must be after mbstring as it depends on it
-extension=mysqli
+;extension=mysqli
 ;extension=oci8_12c  ; Use with Oracle Database 12c Instant Client
 ;extension=oci8_19  ; Use with Oracle Database 19 Instant Client
 ;extension=odbc
-extension=openssl
+;extension=openssl
 ;extension=pdo_firebird
 ;extension=pdo_mysql
 ;extension=pdo_oci
@@ -945,8 +945,6 @@ extension=openssl
 ;extension=pdo_sqlite
 ;extension=pgsql
 ;extension=shmop
-extension=imagick.so
-extension=memcache.so
 
 ; The MIBS data available in the PHP distribution must be installed.
 ; See http://www.php.net/manual/en/snmp.installation.php
@@ -955,9 +953,9 @@ extension=memcache.so
 ;extension=soap
 ;extension=sockets
 ;extension=sodium
-extension=sqlite3
+;extension=sqlite3
 ;extension=tidy
-extension=xsl
+;extension=xsl
 
 ;zend_extension=opcache
 
