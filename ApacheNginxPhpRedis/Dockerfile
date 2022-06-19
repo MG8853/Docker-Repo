@@ -10,8 +10,14 @@ RUN apt-get update && apt-get -y upgrade && \
     apt-get -y install software-properties-common curl apt-transport-https ca-certificates gnupg tar unzip git wget
 RUN add-apt-repository -y ppa:ondrej/php && add-apt-repository -y ppa:chris-lea/redis-server
 RUN apt-get update && \
-    apt-get -y install gcc build-essential libpcre3 libpcre3-dev libssl-dev zlib1g-dev redis-server libmagickwand-dev
-
+    apt-get -y install gcc build-essential libpcre3 libpcre3-dev libssl-dev zlib1g-dev redis-server
+RUN apt-get -y install autoconf dpkg-dev file g++ gcc libc-dev make pkg-config re2c xz-utils gnupg dirmngr
+RUN apt-get -y install libargon2-dev libcurl4-openssl-dev libonig-dev libreadline-dev libsodium-dev libsqlite3-dev \
+    libssl-dev libxml2-dev zlib1g-dev
+RUN apt-get -y install libaprutil1-ldap libldap-common
+RUN apt-get -y install bzip2 dirmngr dpkg-dev gcc gnupg libapr1-dev libaprutil1-dev libbrotli-dev libcurl4-openssl-dev \
+    libjansson-dev liblua5.2-dev libnghttp2-dev libpcre3-dev libssl-dev libxml2-dev make wget zlib1g-dev
+RUN apt-get -y install libmagickwand-dev
 
 
 WORKDIR /usr/local/nginx
