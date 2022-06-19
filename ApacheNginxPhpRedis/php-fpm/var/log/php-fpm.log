@@ -1,0 +1,6 @@
+[19-Jun-2022 13:51:31] NOTICE: fpm is running, pid 1548121
+[19-Jun-2022 13:51:31] NOTICE: ready to handle connections
+[19-Jun-2022 15:14:12] ERROR: unable to bind listening socket for address '127.0.0.1:9000': Address already in use (98)
+[19-Jun-2022 15:14:12] ERROR: FPM initialization failed
+[19-Jun-2022 15:15:47] NOTICE: fpm is running, pid 1592787
+[19-Jun-2022 15:15:47] NOTICE: ready to handle connections
