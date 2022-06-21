@@ -1,5 +1,25 @@
 #!/bin/bash
 
+
+
+apt-get update && apt-get -y upgrade && \
+    apt-get -y install software-properties-common curl apt-transport-https ca-certificates gnupg tar unzip git wget
+add-apt-repository -y ppa:ondrej/php && add-apt-repository -y ppa:chris-lea/redis-server
+apt-get update && \
+    apt-get -y install gcc build-essential libpcre3 libpcre3-dev libssl-dev zlib1g-dev redis-server
+apt-get -y install autoconf dpkg-dev file g++ gcc libc-dev make pkg-config re2c xz-utils gnupg dirmngr
+apt-get -y install libargon2-dev libcurl4-openssl-dev libonig-dev libreadline-dev libsodium-dev libsqlite3-dev \
+    libssl-dev libxml2-dev zlib1g-dev
+apt-get -y install libaprutil1-ldap libldap-common
+apt-get -y install bzip2 dirmngr dpkg-dev gcc gnupg libapr1-dev libaprutil1-dev libbrotli-dev libcurl4-openssl-dev \
+    libjansson-dev liblua5.2-dev libnghttp2-dev libpcre3-dev libssl-dev libxml2-dev make wget zlib1g-dev libxslt-dev \
+    libzip-dev
+apt-get -y install libmagickwand-dev
+
+
+
+
+
 echo "Build Apache2..."
 HTTPD_PREFIX=/home/container/apache2
 PATH=$HTTPD_PREFIX/bin:$PATH
@@ -202,8 +222,15 @@ wget https://www.php.net/distributions/php-8.0.20.tar.gz && tar xzvf php-8.0.20.
     --enable-mbstring   \
     --enable-fpm   \
     --enable-bcmath   \
-    --enable-phpdbg-readline   \
     --with-bz2   \
+    --with-pic   \
+    --with-mhash   \
+    --enable-ftp   \
+    --enable-mysqlnd   \
+    --with-password-argon2   \
+    --with-iconv   \
+    --with-readline   \
+    --enable-fpm   \
     --with-fpm-user=container   \
     --with-fpm-group=container && \
     make && make install

@@ -16,7 +16,8 @@ RUN apt-get -y install libargon2-dev libcurl4-openssl-dev libonig-dev libreadlin
     libssl-dev libxml2-dev zlib1g-dev
 RUN apt-get -y install libaprutil1-ldap libldap-common
 RUN apt-get -y install bzip2 dirmngr dpkg-dev gcc gnupg libapr1-dev libaprutil1-dev libbrotli-dev libcurl4-openssl-dev \
-    libjansson-dev liblua5.2-dev libnghttp2-dev libpcre3-dev libssl-dev libxml2-dev make wget zlib1g-dev
+    libjansson-dev liblua5.2-dev libnghttp2-dev libpcre3-dev libssl-dev libxml2-dev make wget zlib1g-dev libxslt-dev \
+    libzip-dev libxslt1-dev
 RUN apt-get -y install libmagickwand-dev
 
 
