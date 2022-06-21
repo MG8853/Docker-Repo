@@ -267,6 +267,7 @@ echo "Setup PHP-FPM..."
 cp "/home/container/php-8.0.20/php.ini-production" "/home/container/php-fpm/php.ini"
 cp "/home/container/php-fpm/etc/php-fpm.conf.default" "/home/container/php-fpm/etc/php-fpm.conf"
 cp "/home/container/php-fpm/etc/php-fpm.d/www.conf.default" "/home/container/php-fpm/etc/php-fpm.d/www.conf"
+mkdir /home/container/php-fpm/log
 
 
 
