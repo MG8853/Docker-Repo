@@ -18,8 +18,8 @@ RUN apt-get -y install libargon2-dev libcurl4-openssl-dev libonig-dev libreadlin
 RUN apt-get -y install libaprutil1-ldap libldap-common
 RUN apt-get -y install bzip2 dirmngr dpkg-dev gcc gnupg libapr1-dev libaprutil1-dev libbrotli-dev libcurl4-openssl-dev \
     libjansson-dev liblua5.2-dev libnghttp2-dev libpcre3-dev libssl-dev libxml2-dev make wget zlib1g-dev libxslt-dev \
-    libzip-dev libxslt1-dev libmariadb-dev mariadb-client
-RUN apt-get -y install libmagickwand-dev libmysqlclient-dev libmariadbclient-dev
+    libzip-dev libxslt1-dev
+RUN apt-get -y install libmagickwand-dev
 RUN apt-get -y install php8.0 php8.0-cli php8.0-gd php8.0-mysql php8.0-pdo php8.0-mbstring  \
     php8.0-tokenizer php8.0-bcmath php8.0-xml php8.0-fpm php8.0-curl php8.0-zip php8.0-common  \
     php8.0-intl php8.0-opcache php8.0-readline php8.0-xsl php8.0-bz2 php8.0-imagick php8.0-dev
