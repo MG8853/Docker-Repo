@@ -10,9 +10,11 @@ RUN apt-get update -y \
     && apt-get install -y sudo wget git curl unzip git build-essential \
     ca-certificates openssl tar sqlite3 fontconfig tzdata iproute2 jq
 
+RUN add-apt-repository -y ppa:chris-lea/redis-server
+
 RUN apt update \
     && apt -y install ffmpeg iproute2 git sqlite3 libsqlite3-dev python3 python3-dev ca-certificates dnsutils  \
-    tzdata zip libnss3 autoconf automake g++ libtool build-essential
+    tzdata zip libnss3 autoconf automake g++ libtool build-essential redis-server
 
 USER container
 ENV USER=container HOME=/home/container
