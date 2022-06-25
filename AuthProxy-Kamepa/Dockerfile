@@ -1,4 +1,4 @@
-FROM --platform=$TARGETOS/$TARGETARCH node:16-bullseye
+FROM node:16-bullseye
 
 LABEL author="MG8853" maintainer="TeamFelNull"
 
@@ -8,7 +8,7 @@ ENV DEBIAN_FRONTEND=noninteractive
 ##useradd -d /home/container -m container &&
 RUN apt-get update -y \
     && apt-get install -y sudo wget git curl unzip git build-essential \
-    ca-certificates openssl tar sqlite3 fontconfig tzdata iproute2 jq
+    ca-certificates openssl tar sqlite3 fontconfig tzdata iproute2 jq software-properties-common
 
 RUN add-apt-repository -y ppa:chris-lea/redis-server
 
