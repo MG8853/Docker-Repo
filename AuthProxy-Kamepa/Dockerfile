@@ -1,4 +1,4 @@
-FROM node:16-bullseye
+FROM --platform=$TARGETOS/$TARGETARCH node:16-bullseye
 
 LABEL author="MG8853" maintainer="TeamFelNull"
 
