@@ -161,6 +161,7 @@ set -eux; \
 		--enable-mods-shared=reallyall \
 		--enable-mpms-shared=all \
 		--enable-pie \
+		--enable-so \
 		CFLAGS="-pipe $CFLAGS" \
 		CPPFLAGS="$CPPFLAGS" \
 		LDFLAGS="-Wl,--as-needed $LDFLAGS" \
@@ -199,45 +200,96 @@ set -eux; \
 
 
 
+
+
+
+apt-get update && \
+apt-get install -y autoconf \
+    dpkg-dev \
+    file \
+    g++ \
+    gcc \
+    libc-dev \
+    make \
+    pkg-config \
+    re2c \
+    ca-certificates \
+    curl \
+    xz-utils \
+    gnupg \
+    dirmngr && \
+apt-get update && \
+apt-get install -y libargon2-dev \
+    libcurl4-openssl-dev \
+    libonig-dev \
+    libreadline-dev \
+    libsodium-dev \
+    libsqlite3-dev \
+    libssl-dev \
+    libxml2-dev && \
+apt-get update && \
+apt-get install -y libpng-dev \
+    libjpeg-dev \
+    zlib1g-dev \
+    libxslt1-dev \
+    libzip-dev \
+    libexpat1 \
+    libapr1-dev \
+    libaprutil1-dev
+
+
+
+
+
+
+
+
+
+
 echo "Starting PHP-FPM..."
 cd /home/container/
-wget https://www.php.net/distributions/php-8.0.20.tar.gz && tar xzvf php-8.0.20.tar.gz && cd php-8.0.20 && \
+wget https://www.php.net/distributions/php-8.0.20.tar.gz && tar xzvf php-8.0.20.tar.gz && \
+    mv php-8.0.20 php-fpm && cd php-fpm && \
     ./configure   \
     --prefix=/home/container/php-fpm   \
     --with-apxs2=/home/container/apache2/bin/apxs   \
+    --with-pdo-mysql   \
+    --enable-mbstring   \
+    --with-zip   \
+    --enable-fpm   \
+    --enable-gd   \
     --with-curl   \
     --with-openssl   \
     --enable-soap   \
-    --enable-gd   \
-    --with-zip   \
     --with-jpeg   \
     --with-mysqli   \
-    --with-freetype   \
-    --with-ldap   \
-    --with-expat   \
     --enable-intl   \
+    --with-expat   \
     --with-xsl   \
     --with-zlib   \
-    --with-mysqli   \
-    --enable-mbstring   \
-    --enable-fpm   \
-    --enable-bcmath   \
-    --with-bz2   \
-    --with-pic   \
-    --with-mhash   \
-    --enable-ftp   \
-    --enable-mysqlnd   \
     --with-password-argon2   \
     --with-iconv   \
     --with-readline   \
-    --enable-fpm   \
     --with-fpm-user=container   \
     --with-fpm-group=container && \
-    make && make install
+    make -j 2 && make install
 rm -fr "/home/container/php-8.0.20.tar.gz"
-cp "/home/container/php-8.0.20/php.ini-development" "/home/container/php-fpm/php.ini-development"
-cp "/home/container/php-8.0.20/php.ini-production" "/home/container/php-fpm/php.ini-production"
 
+
+
+echo "Build APR..."
+cd /home/container/
+wget https://dlcdn.apache.org//apr/apr-1.7.0.tar.gz && tar xvzf apr-1.7.0.tar.gz && cd apr-1.7.0 && \
+    ./configure && \
+    make && make install
+rm -fr "/home/container/apr-1.7.0.tar.gz"
+cd /home/container/
+apt-get update && apt-get install -y expat
+apt-get update && apt-get install -y libexpat1-dev
+wget https://dlcdn.apache.org//apr/apr-util-1.6.1.tar.gz && tar xvzf apr-util-1.6.1.tar.gz && cd apr-util-1.6.1 && \
+    ./configure --with-apr=/usr/local/apr/bin/apr-1-config && \
+    make && make install
+rm -fr "/home/container/apr-util-1.6.1.tar.gz"
 
 
 echo "Build PHP-FPM ImageMagick..."
@@ -262,9 +314,44 @@ wget https://pecl.php.net/get/memcache-8.0.tgz && tar xvzf memcache-8.0.tgz && c
     make && make install
 rm -fr "/home/container/memcache-8.0.tgz"
 
+echo "Build PHP-FPM Zlib..."
+cd /home/container/php-8.0.20/ext/zlib/ && \
+    mv "/home/container/php-8.0.20/ext/zlib/config0.m4" "/home/container/php-8.0.20/ext/zlib/config.m4" && \
+    "/home/container/php-fpm/bin/phpize" && \
+    ./configure   \
+    --with-zlib=/home/container/php-fpm   \
+    --with-php-config=/home/container/php-fpm/bin/php-config && \
+    make && make install
+
+echo "Build PHP-FPM pdo..."
+cd /home/container/php-8.0.20/ext/pdo/ && \
+    "/home/container/php-fpm/bin/phpize" && \
+    ./configure   \
+    --with-pdo=/home/container/php-fpm   \
+    --with-php-config=/home/container/php-fpm/bin/php-config && \
+    make && make install
+
+echo "Build PHP-FPM pdo_mysql..."
+cd /home/container/php-8.0.20/ext/pdo_mysql/ && \
+    "/home/container/php-fpm/bin/phpize" && \
+    ./configure   \
+    --with-pdo_mysql=/home/container/php-fpm   \
+    --with-php-config=/home/container/php-fpm/bin/php-config && \
+    make && make install
+
+echo "Build PHP-FPM mysqlnd..."
+cd /home/container/php-8.0.20/ext/mysqlnd/ && \
+    mv "/home/container/php-8.0.20/ext/mysqlnd/config9.m4" "/home/container/php-8.0.20/ext/mysqlnd/config.m4" && \
+    "/home/container/php-fpm/bin/phpize" && \
+    ./configure   \
+    --with-mysqlnd=/home/container/php-fpm   \
+    --with-php-config=/home/container/php-fpm/bin/php-config && \
+    make && make install
+
+
 
 echo "Setup PHP-FPM..."
-cp "/home/container/php-8.0.20/php.ini-production" "/home/container/php-fpm/php.ini"
+cp "/home/container/php-fpm/php.ini-development" "/home/container/php-fpm/php.ini"
 cp "/home/container/php-fpm/etc/php-fpm.conf.default" "/home/container/php-fpm/etc/php-fpm.conf"
 cp "/home/container/php-fpm/etc/php-fpm.d/www.conf.default" "/home/container/php-fpm/etc/php-fpm.d/www.conf"
 mkdir /home/container/php-fpm/log
