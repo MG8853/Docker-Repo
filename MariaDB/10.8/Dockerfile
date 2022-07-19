@@ -1,7 +1,7 @@
 # -----------------------------------------------------
 # MariaDB Image for Pterodactyl
 # -----------------------------------------------------
-FROM        --platform=$TARGETOS/$TARGETARCH mariadb:10.7
+FROM        --platform=$TARGETOS/$TARGETARCH mariadb:10.8
 
 LABEL author="MG8853" maintainer="TeamFelNull"
 
@@ -14,11 +14,11 @@ RUN         apt update -y \
 # MG
 RUN apt-get update -y \
     && apt-get install -y sudo wget git curl unzip git build-essential \
-    ca-certificates openssl tar sqlite3 fontconfig tzdata iproute2 jq \
+    ca-certificates openssl tar sqlite3 fontconfig tzdata iproute2 jq
 
 USER        container
 ENV         USER=container HOME=/home/container
 WORKDIR     /home/container
 
-COPY        ../entrypoint.sh /entrypoint.sh
+COPY        entrypoint.sh /entrypoint.sh
 CMD ["/bin/bash", "/entrypoint.sh"]
