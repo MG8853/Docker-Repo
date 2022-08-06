@@ -4,7 +4,7 @@ LABEL author="MG8853" maintainer="TeamFelNull"
 
 RUN useradd -d /home/container -m container
 
-ARG version=11.0.15.9-1
+ARG version=11.0.16.8-1
 # In addition to installing the Amazon corretto, we also install
 # fontconfig. The folks who manage the docker hub's
 # official image library have found that font management
