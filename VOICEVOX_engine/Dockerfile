@@ -5,6 +5,8 @@ ENV DEBIAN_FRONTEND=noninteractive
 RUN apt-get update -y \
     && apt-get install -y sudo wget git curl unzip git build-essential \
     ca-certificates openssl tar sqlite3 fontconfig tzdata iproute2 jq p7zip-full libsndfile1
+    
+RUN pip install Cython
 
 #RUN cd / && \
 #    wget https://download.pytorch.org/libtorch/cpu/libtorch-cxx11-abi-shared-with-deps-1.11.0%2Bcpu.zip && \
