@@ -6,9 +6,9 @@ on:
     branches:
       - master
     paths:
-      - Amazon-Corretto-java8/**
-      - Amazon-Corretto-java11/**
-      - Amazon-Corretto-java17/**
+      - OpenJDK-java8/**
+      - OpenJDK-java11/**
+      - OpenJDK-java17/**
 jobs:
   push:
     name: "yolks:openjdk-java${{ matrix.tag }}"
