@@ -1,4 +1,4 @@
-FROM --platform=$TARGETOS/$TARGETARCH ibm-semeru-runtimes:open-11-jdk-focal
+FROM --platform=$TARGETOS/$TARGETARCH ibm-semeru-runtimes:open-11-jdk-jammy
 
 LABEL author="MG8853" maintainer="TeamFelNull"
 

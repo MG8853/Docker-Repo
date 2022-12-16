@@ -1,4 +1,4 @@
-FROM --platform=$TARGETOS/$TARGETARCH openjdk:17-buster
+FROM --platform=$TARGETOS/$TARGETARCH openjdk:17-bullseye
 
 LABEL author="MG8853" maintainer="TeamFelNull"
 
