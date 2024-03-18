@@ -9,6 +9,7 @@ on:
       - IBM-Semeru-Runtimes-java8/**
       - IBM-Semeru-Runtimes-java11/**
       - IBM-Semeru-Runtimes-java17/**
+      - IBM-Semeru-Runtimes-java21/**
 jobs:
   push:
     name: "yolks:ibm-semeru-runtimes-java${{ matrix.tag }}"
@@ -20,6 +21,7 @@ jobs:
           - '8'
           - '11'
           - '17'
+          - '21'
     steps:
       - uses: actions/checkout@v2
       - uses: docker/setup-qemu-action@v1

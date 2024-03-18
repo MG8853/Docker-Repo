@@ -9,6 +9,7 @@ on:
       - Microsoft-AzulPrime-java8/**
       - Microsoft-AzulPrime-java11/**
       - Microsoft-AzulPrime-java17/**
+      - Microsoft-AzulPrime-java21/**
 jobs:
   push:
     name: "yolks:microsoft-azulprime-java${{ matrix.tag }}/${{ matrix.arch }}"
@@ -20,6 +21,7 @@ jobs:
           - '8'
           - '11'
           - '17'
+          - '21'
         arch:
           - 'aarch64'
           - 'amd64'
