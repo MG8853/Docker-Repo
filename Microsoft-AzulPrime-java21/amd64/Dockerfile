@@ -1,4 +1,4 @@
-FROM --platform=linux/amd64 azul/prime-debian:17
+FROM --platform=linux/amd64 azul/prime-debian:21
 
 LABEL author="MG8853" maintainer="TeamFelNull"
 

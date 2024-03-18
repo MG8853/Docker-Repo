@@ -19,6 +19,9 @@
 * [openjdk-java17 (amd64 & aarch64)](/OpenJDK-java17)
   * `ghcr.io/mg8853/yolks:openjdk-java17`
 
+* [openjdk-java21 (amd64 & aarch64)](/OpenJDK-java21)
+  * `ghcr.io/mg8853/yolks:openjdk-java21`
+
 ### Amazon-Corretto
 
 * [amazon-corretto-java8 (amd64 & aarch64)](/Amazon-Corretto-java8)
@@ -29,6 +32,9 @@
 
 * [amazon-corretto-java17 (amd64 & aarch64)](/Amazon-Corretto-java17)
   * `ghcr.io/mg8853/yolks:amazon-corretto-java17`
+
+* [amazon-corretto-java21 (amd64 & aarch64)](/Amazon-Corretto-java21)
+  * `ghcr.io/mg8853/yolks:amazon-corretto-java21`
 
 ### BellSoft-Liberica
 
@@ -41,6 +47,9 @@
 * [bellsoft-liberica-java17 (amd64)](/BellSoft-Liberica-java17/amd64)
   * `ghcr.io/mg8853/yolks_amd64:bellsoft-liberica-java17-amd64`
 
+* [bellsoft-liberica-java21 (amd64)](/BellSoft-Liberica-java21/amd64)
+  * `ghcr.io/mg8853/yolks_amd64:bellsoft-liberica-java21-amd64`
+
 * [bellsoft-liberica-java8 (aarch64)](/BellSoft-Liberica-java8/aarch64)
   * `ghcr.io/mg8853/yolks_aarch64:bellsoft-liberica-java8-aarch64`
 
@@ -49,6 +58,9 @@
 
 * [bellsoft-liberica-java17 (aarch64)](/BellSoft-Liberica-java17/aarch64)
   * `ghcr.io/mg8853/yolks_aarch64:bellsoft-liberica-java17-aarch64`
+
+* [bellsoft-liberica-java21 (aarch64)](/BellSoft-Liberica-java21/aarch64)
+  * `ghcr.io/mg8853/yolks_aarch64:bellsoft-liberica-java21-aarch64`
 
 ### IBM-Semeru-Runtimes
 
@@ -61,6 +73,9 @@
 * [ibm-semeru-runtimes-java17 (amd64 & aarch64)](/IBM-Semeru-Runtimes-java17)
   * `ghcr.io/mg8853/yolks:ibm-semeru-runtimes-java17`
 
+* [ibm-semeru-runtimes-java21 (amd64 & aarch64)](/IBM-Semeru-Runtimes-java21)
+  * `ghcr.io/mg8853/yolks:ibm-semeru-runtimes-java21`
+
 ### Microsoft-AzulPrime
 
 * [microsoft-azulprime-java8 (amd64)](/Microsoft-AzulPrime-java8/amd64)
@@ -71,6 +86,9 @@
 
 * [microsoft-azulprime-java17 (amd64)](/Microsoft-AzulPrime-java17/amd64)
   * `ghcr.io/mg8853/yolks_amd64:microsoft-azulprime-java17-amd64`
+
+* [microsoft-azulprime-java21 (amd64)](/Microsoft-AzulPrime-java21/amd64)
+  * `ghcr.io/mg8853/yolks_amd64:microsoft-azulprime-java21-amd64`
 
 ### Oracle-GraalVM-EE
 
