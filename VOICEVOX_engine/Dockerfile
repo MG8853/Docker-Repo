@@ -1,31 +1,134 @@
-FROM --platform=$TARGETOS/$TARGETARCH python:3.11-bookworm
+# syntax=docker/dockerfile:1.4
 
-ENV DEBIAN_FRONTEND=noninteractive
+ARG BASE_IMAGE=ubuntu:20.04
+ARG BASE_RUNTIME_IMAGE=$BASE_IMAGE
 
-RUN apt-get update -y \
-    && apt-get install -y \
-        sudo \
+# Download VOICEVOX Core shared object
+FROM --platform=$TARGETOS/$TARGETARCH ${BASE_IMAGE} AS download-core-env
+ARG DEBIAN_FRONTEND=noninteractive
+
+WORKDIR /work
+
+RUN <<EOF
+    set -eux
+
+    apt-get update
+    apt-get install -y \
         wget \
-        git \
-        dnsutils \
-        curl \
-        unzip \
-        git \
-        build-essential \
-        ca-certificates \
-        openssl \
-        tar \
-        sqlite3 \
-        fontconfig \
-        tzdata \
-        iproute2 \
-        jq \
-        p7zip-full \
-        libsndfile1 \
-        ffmpeg \
-        procps
+        unzip
+    apt-get clean
+    rm -rf /var/lib/apt/lists/*
+EOF
 
-RUN apt-get install -y \
+# assert VOICEVOX_CORE_VERSION >= 0.11.0 (ONNX)
+ARG TARGETPLATFORM
+ARG USE_GPU=false
+ARG VOICEVOX_CORE_VERSION=0.15.3
+
+RUN <<EOF
+    set -eux
+
+    # Processing Switch
+    if [ "${USE_GPU}" = "true" ]; then
+        VOICEVOX_CORE_ASSET_ASSET_PROCESSING="gpu"
+    else
+        VOICEVOX_CORE_ASSET_ASSET_PROCESSING="cpu"
+    fi
+
+    # TARGETARCH Switch
+    if [ "${TARGETPLATFORM}" = "linux/amd64" ]; then
+        VOICEVOX_CORE_ASSET_TARGETARCH="x64"
+    else
+        VOICEVOX_CORE_ASSET_TARGETARCH="arm64"
+    fi
+
+    VOICEVOX_CORE_ASSET_PREFIX="voicevox_core-linux-${VOICEVOX_CORE_ASSET_TARGETARCH}-${VOICEVOX_CORE_ASSET_ASSET_PROCESSING}"
+
+    # Download Core
+    VOICEVOX_CORE_ASSET_NAME=${VOICEVOX_CORE_ASSET_PREFIX}-${VOICEVOX_CORE_VERSION}
+    wget -nv --show-progress -c -O "./${VOICEVOX_CORE_ASSET_NAME}.zip" "https://github.com/VOICEVOX/voicevox_core/releases/download/${VOICEVOX_CORE_VERSION}/${VOICEVOX_CORE_ASSET_NAME}.zip"
+    unzip "./${VOICEVOX_CORE_ASSET_NAME}.zip"
+    mkdir -p core
+    mv "${VOICEVOX_CORE_ASSET_NAME}"/* core
+    rm -rf $VOICEVOX_CORE_ASSET_NAME
+    rm "./${VOICEVOX_CORE_ASSET_NAME}.zip"
+
+    # Move Core to /opt/voicevox_core/
+    mkdir /opt/voicevox_core
+    mv ./core/* /opt/voicevox_core/
+
+    # Add /opt/voicevox_core to dynamic library search path
+    echo "/opt/voicevox_core" > /etc/ld.so.conf.d/voicevox_core.conf
+
+    # Update dynamic library search cache
+    ldconfig
+EOF
+
+
+# Download ONNX Runtime
+FROM --platform=$TARGETOS/$TARGETARCH ${BASE_IMAGE} AS download-onnxruntime-env
+ARG DEBIAN_FRONTEND=noninteractive
+
+WORKDIR /work
+
+RUN <<EOF
+    set -eux
+
+    apt-get update
+    apt-get install -y \
+        wget \
+        tar
+    apt-get clean
+    rm -rf /var/lib/apt/lists/*
+EOF
+
+ARG TARGETPLATFORM
+ARG USE_GPU=false
+ARG ONNXRUNTIME_VERSION=1.13.1
+RUN <<EOF
+    set -eux
+
+    # Processing Switch
+    if [ "${USE_GPU}" = "true" ]; then
+        ONNXRUNTIME_PROCESSING="gpu-"
+    else
+        ONNXRUNTIME_PROCESSING=""
+    fi
+
+    # TARGETARCH Switch
+    if [ "${TARGETPLATFORM}" = "linux/amd64" ]; then
+        ONNXRUNTIME_TARGETARCH=x64
+    else
+        ONNXRUNTIME_TARGETARCH=aarch64
+    fi
+
+    ONNXRUNTIME_URL="https://github.com/microsoft/onnxruntime/releases/download/v${ONNXRUNTIME_VERSION}/onnxruntime-linux-${ONNXRUNTIME_TARGETARCH}-${ONNXRUNTIME_PROCESSING}${ONNXRUNTIME_VERSION}.tgz"
+
+    # Download ONNX Runtime
+    wget -nv --show-progress -c -O "./onnxruntime.tgz" "${ONNXRUNTIME_URL}"
+
+    # Extract ONNX Runtime to /opt/onnxruntime
+    mkdir -p /opt/onnxruntime
+    tar xf "./onnxruntime.tgz" -C "/opt/onnxruntime" --strip-components 1
+    rm ./onnxruntime.tgz
+
+    # Add /opt/onnxruntime/lib to dynamic library search path
+    echo "/opt/onnxruntime/lib" > /etc/ld.so.conf.d/onnxruntime.conf
+
+    # Update dynamic library search cache
+    ldconfig
+EOF
+
+
+# Compile Python (version locked)
+FROM --platform=$TARGETOS/$TARGETARCH ${BASE_IMAGE} AS compile-python-env
+
+ARG DEBIAN_FRONTEND=noninteractive
+
+RUN <<EOF
+    set -eux
+    apt-get update
+    apt-get install -y \
         build-essential \
         libssl-dev \
         zlib1g-dev \
@@ -41,8 +144,54 @@ RUN apt-get install -y \
         libffi-dev \
         liblzma-dev \
         git
+    apt-get clean
+    rm -rf /var/lib/apt/lists/*
+EOF
 
-RUN apt-get install -y \
+ARG PYTHON_VERSION=3.11.3
+ARG PYENV_VERSION=v2.3.17
+ARG PYENV_ROOT=/tmp/.pyenv
+ARG PYBUILD_ROOT=/tmp/python-build
+RUN <<EOF
+    set -eux
+
+    git clone -b "${PYENV_VERSION}" https://github.com/pyenv/pyenv.git "$PYENV_ROOT"
+    PREFIX="$PYBUILD_ROOT" "$PYENV_ROOT"/plugins/python-build/install.sh
+    "$PYBUILD_ROOT/bin/python-build" -v "$PYTHON_VERSION" /opt/python
+
+    rm -rf "$PYBUILD_ROOT" "$PYENV_ROOT"
+EOF
+
+# FIXME: add /opt/python to PATH
+# not working: /etc/profile read only on login shell
+# not working: /etc/environment is the same
+# not suitable: `ENV` is ignored by docker-compose
+# RUN <<EOF
+#     set -eux
+#     echo "export PATH=/opt/python/bin:\$PATH" > /etc/profile.d/python-path.sh
+#     echo "export LD_LIBRARY_PATH=/opt/python/lib:\$LD_LIBRARY_PATH" >> /etc/profile.d/python-path.sh
+#     echo "export C_INCLUDE_PATH=/opt/python/include:\$C_INCLUDE_PATH" >> /etc/profile.d/python-path.sh
+#
+#     rm -f /etc/ld.so.cache
+#     ldconfig
+# EOF
+
+
+# Runtime
+FROM --platform=$TARGETOS/$TARGETARCH ${BASE_RUNTIME_IMAGE} AS runtime-env
+ARG DEBIAN_FRONTEND=noninteractive
+
+WORKDIR /opt/voicevox_engine
+
+# ca-certificates: pyopenjtalk dictionary download
+# build-essential: pyopenjtalk local build
+# libsndfile1: soundfile shared object for arm64
+# ref: https://github.com/VOICEVOX/voicevox_engine/issues/770
+RUN <<EOF
+    set -eux
+
+    apt-get update
+    apt-get install -y \
         git \
         wget \
         cmake \
@@ -50,8 +199,92 @@ RUN apt-get install -y \
         build-essential \
         gosu \
         libsndfile1
+    apt-get clean
+    rm -rf /var/lib/apt/lists/*
 
-RUN useradd -m -d /home/container container
+    # Create a general user
+    useradd --create-home container
+EOF
+
+# Copy python env
+COPY --from=compile-python-env /opt/python /opt/python
+
+# Install Python dependencies
+ADD ./requirements.txt /tmp/
+RUN <<EOF
+    # Install requirements
+    gosu container /opt/python/bin/pip3 install -r /tmp/requirements.txt
+EOF
+
+# Copy VOICEVOX Core release
+# COPY --from=download-core-env /etc/ld.so.conf.d/voicevox_core.conf /etc/ld.so.conf.d/voicevox_core.conf
+COPY --from=download-core-env /opt/voicevox_core /opt/voicevox_core
+
+# Copy ONNX Runtime
+# COPY --from=download-onnxruntime-env /etc/ld.so.conf.d/onnxruntime.conf /etc/ld.so.conf.d/onnxruntime.conf
+COPY --from=download-onnxruntime-env /opt/onnxruntime /opt/onnxruntime
+
+# Add local files
+ADD ./voicevox_engine /opt/voicevox_engine/voicevox_engine
+ADD ./docs /opt/voicevox_engine/docs
+ADD ./run.py ./presets.yaml ./default.csv ./engine_manifest.json /opt/voicevox_engine/
+ADD ./build_util/generate_licenses.py /opt/voicevox_engine/build_util/
+ADD ./speaker_info /opt/voicevox_engine/speaker_info
+ADD ./ui_template /opt/voicevox_engine/ui_template
+ADD ./engine_manifest_assets /opt/voicevox_engine/engine_manifest_assets
+
+# Replace version
+ARG VOICEVOX_ENGINE_VERSION=latest
+RUN sed -i "s/__version__ = \"latest\"/__version__ = \"${VOICEVOX_ENGINE_VERSION}\"/" /opt/voicevox_engine/voicevox_engine/__init__.py
+RUN sed -i "s/\"version\": \"999\\.999\\.999\"/\"version\": \"${VOICEVOX_ENGINE_VERSION}\"/" /opt/voicevox_engine/engine_manifest.json
+
+# Generate licenses.json
+ADD ./requirements-license.txt /tmp/
+RUN <<EOF
+    set -eux
+
+    cd /opt/voicevox_engine
+
+    # Define temporary env vars
+    # /home/user/.local/bin is required to use the commands installed by pip
+    export PATH="/home/container/.local/bin:${PATH:-}"
+
+    gosu container /opt/python/bin/pip3 install -r /tmp/requirements-license.txt
+    gosu container /opt/python/bin/python3 build_util/generate_licenses.py > /opt/voicevox_engine/engine_manifest_assets/dependency_licenses.json
+    cp /opt/voicevox_engine/engine_manifest_assets/dependency_licenses.json /opt/voicevox_engine/licenses.json
+EOF
+
+# Keep this layer separated to use layer cache on download failed in local build
+RUN <<EOF
+    set -eux
+
+    # Download openjtalk dictionary
+    # try 5 times, sleep 5 seconds before retry
+    for i in $(seq 5); do
+        EXIT_CODE=0
+        gosu container /opt/python/bin/python3 -c "import pyopenjtalk; pyopenjtalk._lazy_init()" || EXIT_CODE=$?
+        if [ "$EXIT_CODE" = "0" ]; then
+            break
+        fi
+        sleep 5
+    done
+
+    if [ "$EXIT_CODE" != "0" ]; then
+        exit "$EXIT_CODE"
+    fi
+EOF
+
+# Download Resource
+ARG VOICEVOX_RESOURCE_VERSION=0.18.1
+RUN <<EOF
+    set -eux
+
+    # README
+    wget -nv --show-progress -c -O "/opt/voicevox_engine/README.md" "https://raw.githubusercontent.com/VOICEVOX/voicevox_resource/${VOICEVOX_RESOURCE_VERSION}/engine/README.md"
+EOF
+
+
+#RUN useradd -m -d /home/container container
 
 USER        container
 ENV         USER=container HOME=/home/container
