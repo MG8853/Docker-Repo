@@ -1,32 +1,31 @@
 FROM        --platform=$TARGETOS/$TARGETARCH ubuntu:20.04
 
-LABEL       author="Michael Parker" maintainer="parker@pterodactyl.io"
+LABEL       author="MG8853" maintainer="mg.8080@servg.net"
 
-ENV         DEBIAN_FRONTEND noninteractive
+ENV   DEBIAN_FRONTEND noninteractive
 
-RUN         useradd -d /home/container -m container -s /bin/bash
+## add container user
+RUN   useradd -m -d /home/container -s /bin/bash container
 
-RUN         ln -s /home/container/ /nonexistent
+## update base packages
+RUN   apt update \
+        &&   apt upgrade -y
 
-## Update base packages
-RUN         apt update \
-            && apt upgrade -y
+## install dependencies
+RUN   apt install -y gcc g++ libgcc1 libc++-dev gdb libc6 git wget curl tar zip unzip binutils xz-utils liblzo2-2 cabextract iproute2 net-tools netcat telnet libatomic1 libsdl1.2debian libsdl2-2.0-0 \
+        libfontconfig icu-devtools libunwind8 sqlite3 libsqlite3-dev libzip4 locales ffmpeg apt-transport-https init-system-helpers \
+        libcurl3-gnutls liblua5.1-0 libluajit-5.1-2 libsqlite3-0 bzip2 zlib1g libevent-dev libmariadb-dev-compat libmariadb-dev libssl-dev \
+		libfluidsynth-dev libmariadb-dev libicu-dev libssl3 libduktape207 libjsoncpp-dev libleveldb1d libncurses5 libncursesw5 tini mtr traceroute fping
 
-## Install dependencies
-RUN         apt install -y sudo gcc g++ libgcc1 libc++-dev gdb libc6 git wget curl tar zip unzip binutils xz-utils liblzo2-2 cabextract iproute2 net-tools netcat telnet libatomic1 libsdl1.2debian libsdl2-2.0-0 \
-            libfontconfig icu-devtools libunwind8 libssl-dev sqlite3 libsqlite3-dev libmariadbclient-dev-compat libduktape205 locales ffmpeg gnupg2 apt-transport-https software-properties-common ca-certificates \
-            liblua5.3-0 libz-dev rapidjson-dev tzdata libevent-dev netcat
+## configure locale
+RUN   update-locale lang=en_US.UTF-8 \
+        &&   dpkg-reconfigure --frontend noninteractive locales
 
-## Configure locale
-RUN         update-locale lang=en_US.UTF-8 \
-            && dpkg-reconfigure --frontend noninteractive locales
+WORKDIR /home/container
 
-RUN         echo "container ALL=(ALL:ALL) NOPASSWD: ALL" | sudo tee /etc/sudoers.d/container
+STOPSIGNAL SIGINT
 
-
-USER        container
-ENV         USER=container HOME=/home/container
-WORKDIR     /home/container
-
-COPY        entrypoint.sh /entrypoint.sh
-CMD ["/bin/bash", "/entrypoint.sh"]
+COPY        --chown=container:container ./entrypoint.sh /entrypoint.sh
+RUN         chmod +x /entrypoint.sh
+ENTRYPOINT    ["/usr/bin/tini", "-g", "--"]
+CMD         ["/entrypoint.sh"]
