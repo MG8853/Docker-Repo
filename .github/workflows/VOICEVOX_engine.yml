@@ -29,7 +29,7 @@ jobs:
         with:
           context: ./VOICEVOX_engine
           file: ./VOICEVOX_engine/Dockerfile
-          platforms: linux/amd64
+          platforms: linux/amd64,linux/arm64
           push: true
           tags: |
             ghcr.io/mg8853/yolks:voicevox_engine

@@ -1,12 +1,55 @@
-FROM python:3.8-bullseye
+FROM --platform=$TARGETOS/$TARGETARCH python:3.11-bookworm
 
 ENV DEBIAN_FRONTEND=noninteractive
-##useradd -d /home/container -m container &&
+
 RUN apt-get update -y \
-    && apt-get install -y sudo wget git curl unzip git build-essential \
-    ca-certificates openssl tar sqlite3 fontconfig tzdata iproute2 jq p7zip-full libsndfile1
-    
-RUN pip install Cython
+    && apt-get install -y \
+        sudo \
+        wget \
+        git \
+        dnsutils \
+        curl \
+        unzip \
+        git \
+        build-essential \
+        ca-certificates \
+        openssl \
+        tar \
+        sqlite3 \
+        fontconfig \
+        tzdata \
+        iproute2 \
+        jq \
+        p7zip-full \
+        libsndfile1 \
+        ffmpeg \
+        procps
+
+RUN apt-get install -y \
+        build-essential \
+        libssl-dev \
+        zlib1g-dev \
+        libbz2-dev \
+        libreadline-dev \
+        libsqlite3-dev \
+        curl \
+        libncursesw5-dev \
+        xz-utils \
+        tk-dev \
+        libxml2-dev \
+        libxmlsec1-dev \
+        libffi-dev \
+        liblzma-dev \
+        git
+
+RUN apt-get install -y \
+        git \
+        wget \
+        cmake \
+        ca-certificates \
+        build-essential \
+        gosu \
+        libsndfile1
 
 #RUN cd / && \
 #    wget https://download.pytorch.org/libtorch/cpu/libtorch-cxx11-abi-shared-with-deps-1.11.0%2Bcpu.zip && \
@@ -39,9 +82,11 @@ RUN pip install Cython
 
 USER container
 ENV USER=container HOME=/home/container
-
 WORKDIR /home/container
 
-COPY entrypoint.sh /entrypoint.sh
+STOPSIGNAL SIGINT
 
-CMD ["/bin/bash", "/entrypoint.sh"]
+COPY entrypoint.sh /entrypoint.sh
+RUN         chmod +x /entrypoint.sh
+ENTRYPOINT    ["/usr/bin/tini", "-g", "--"]
+CMD         ["/entrypoint.sh"]
