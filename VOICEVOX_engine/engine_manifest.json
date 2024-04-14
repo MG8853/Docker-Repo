@@ -1,0 +1,68 @@
+{
+    "manifest_version": "0.13.1",
+    "name": "DUMMY Engine",
+    "brand_name": "DUMMY",
+    "uuid": "c7b58856-bd56-4aa1-afb7-b8415f824b06",
+    "version": "999.999.999",
+    "url": "https://github.com/VOICEVOX/voicevox_engine",
+    "command": "run",
+    "port": 50021,
+    "icon": "engine_manifest_assets/icon.png",
+    "default_sampling_rate": 24000,
+    "frame_rate": 93.75,
+    "terms_of_service": "engine_manifest_assets/terms_of_service.md",
+    "update_infos": "engine_manifest_assets/update_infos.json",
+    "dependency_licenses": "engine_manifest_assets/dependency_licenses.json",
+    "supported_features": {
+        "adjust_mora_pitch": {
+            "type": "bool",
+            "value": true,
+            "name": "モーラごとの音高の調整"
+        },
+        "adjust_phoneme_length": {
+            "type": "bool",
+            "value": true,
+            "name": "音素ごとの長さの調整"
+        },
+        "adjust_speed_scale": {
+            "type": "bool",
+            "value": true,
+            "name": "全体の話速の調整"
+        },
+        "adjust_pitch_scale": {
+            "type": "bool",
+            "value": true,
+            "name": "全体の音高の調整"
+        },
+        "adjust_intonation_scale": {
+            "type": "bool",
+            "value": true,
+            "name": "全体の抑揚の調整"
+        },
+        "adjust_volume_scale": {
+            "type": "bool",
+            "value": true,
+            "name": "全体の音量の調整"
+        },
+        "interrogative_upspeak": {
+            "type": "bool",
+            "value": true,
+            "name": "疑問文の自動調整"
+        },
+        "synthesis_morphing" : {
+            "type": "bool",
+            "value": true,
+            "name": "2種類のスタイルでモーフィングした音声を合成"
+        },
+        "sing" : {
+            "type": "bool",
+            "value": true,
+            "name": "歌唱音声合成"
+        },
+        "manage_library": {
+            "type": "bool",
+            "value": true,
+            "name": "音声ライブラリのインストール・アンインストール"
+        }
+    }
+}
