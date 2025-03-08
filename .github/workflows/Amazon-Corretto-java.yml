@@ -10,6 +10,7 @@ on:
       - Amazon-Corretto-java11/**
       - Amazon-Corretto-java17/**
       - Amazon-Corretto-java21/**
+      - Amazon-Corretto-java23/**
 jobs:
   push:
     name: "yolks:amazon-corretto-java${{ matrix.tag }}"
