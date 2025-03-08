@@ -35,6 +35,9 @@
 
 * [amazon-corretto-java21 (amd64 & aarch64)](/Amazon-Corretto-java21)
   * `ghcr.io/mg8853/yolks:amazon-corretto-java21`
+  * 
+* [amazon-corretto-java23 (amd64 & aarch64)](/Amazon-Corretto-java23)
+  * `ghcr.io/mg8853/yolks:amazon-corretto-java23`
 
 ### BellSoft-Liberica
 
