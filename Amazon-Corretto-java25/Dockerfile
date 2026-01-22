@@ -17,11 +17,10 @@ ARG version=25.0.2.10-1
 RUN set -eux \
     && apt-get update \
     && apt-get install -y --no-install-recommends \
-        curl ca-certificates gnupg software-properties-common fontconfig java-common \
-    && curl -fL https://apt.corretto.aws/corretto.key | apt-key add - \
-    && add-apt-repository 'deb https://apt.corretto.aws stable main' \
-    && mkdir -p /usr/share/man/man1 || true \
-    && apt-get update \
+        curl ca-certificates gnupg software-properties-common fontconfig java-common wget
+RUN wget -O - https://apt.corretto.aws/corretto.key | gpg --dearmor -o /usr/share/keyrings/corretto-keyring.gpg \
+    && echo "deb [signed-by=/usr/share/keyrings/corretto-keyring.gpg] https://apt.corretto.aws stable main" | tee /etc/apt/sources.list.d/corretto.list
+RUN apt-get update \
     && apt-get install -y java-25-amazon-corretto-jdk=1:$version \
     && apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false \
         curl gnupg software-properties-common
