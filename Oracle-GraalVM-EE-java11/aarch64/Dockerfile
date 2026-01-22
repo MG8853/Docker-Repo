@@ -1,4 +1,4 @@
-FROM --platform=linux/arm64 ubuntu:22.04
+FROM --platform=linux/arm64 debian:12
 
 LABEL author="MG8853" maintainer="TeamFelNull"
 
@@ -13,8 +13,8 @@ RUN apt-get update -y \
 
 RUN cd /srv && mkdir jvm && cd jvm && \
     wget --load-cookies /tmp/cookies.txt "https://docs.google.com/uc?export=download&confirm=$(wget --quiet --save-cookies /tmp/cookies.txt --keep-session-cookies --no-check-certificate \
-    'https://docs.google.com/uc?export=download&id=1Z-y1IpfMSDibkLaM4lihVifkjybTwoRW' -O- | \
-    sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')&id=1Z-y1IpfMSDibkLaM4lihVifkjybTwoRW" -O graalvm-ee.tar.gz && rm -rf /tmp/cookies.txt && \
+    'https://docs.google.com/uc?export=download&id=1p6BfnIuJMbEt-ifh6Me9G46FgsAhi2-v' -O- | \
+    sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')&id=1p6BfnIuJMbEt-ifh6Me9G46FgsAhi2-v" -O graalvm-ee.tar.gz && rm -rf /tmp/cookies.txt && \
     tar -xzvf graalvm-ee.tar.gz --strip-components 1 && rm graalvm-ee.tar.gz
 
 ENV PATH=/srv/jvm/bin:$PATH

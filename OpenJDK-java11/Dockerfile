@@ -1,4 +1,4 @@
-FROM --platform=$TARGETOS/$TARGETARCH openjdk:11-bullseye
+FROM --platform=$TARGETOS/$TARGETARCH openjdk:11
 
 LABEL author="MG8853" maintainer="TeamFelNull"
 

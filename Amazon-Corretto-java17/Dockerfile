@@ -1,10 +1,10 @@
-FROM --platform=$TARGETOS/$TARGETARCH debian:bullseye
+FROM --platform=$TARGETOS/$TARGETARCH debian:12
 
 LABEL author="MG8853" maintainer="TeamFelNull"
 
 RUN useradd -d /home/container -m container
 
-ARG version=17.0.10.7-1
+ARG version=17.0.18.8-1
 # In addition to installing the Amazon corretto, we also install
 # fontconfig. The folks who manage the docker hub's
 # official image library have found that font management
@@ -26,7 +26,7 @@ RUN set -eux \
     && apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false \
         curl gnupg software-properties-common
 
-ENV LANG C.UTF-8
+ENV LANG=C.UTF-8
 ENV JAVA_HOME=/usr/lib/jvm/java-17-amazon-corretto
 
 
