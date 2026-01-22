@@ -10,6 +10,7 @@ on:
       - BellSoft-Liberica-java11/**
       - BellSoft-Liberica-java17/**
       - BellSoft-Liberica-java21/**
+      - BellSoft-Liberica-java25/**
 jobs:
   push:
     name: "yolks:bellsoft-liberica-java${{ matrix.tag }}/${{ matrix.arch }}"
@@ -22,6 +23,7 @@ jobs:
           - '11'
           - '17'
           - '21'
+          - '25'
         arch:
           - 'aarch64'
           - 'amd64'
@@ -37,6 +39,28 @@ jobs:
           registry: ghcr.io
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GITHUBTOKEN }}
+
+
+      - name: Build&Push(aarch64)-Java25
+        if: matrix.arch == 'aarch64' && matrix.tag == '25'
+        uses: docker/build-push-action@v2
+        with:
+          context: ./BellSoft-Liberica-java${{ matrix.tag }}/aarch64
+          file: ./BellSoft-Liberica-java${{ matrix.tag }}/aarch64/Dockerfile
+          platforms: linux/arm64
+          push: true
+          tags: |
+            ghcr.io/mg8853/yolks_aarch64:bellsoft-liberica-java${{ matrix.tag }}-aarch64
+      - name: Build&Push(amd64)-Java25
+        if: matrix.arch == 'amd64' && matrix.tag == '25'
+        uses: docker/build-push-action@v2
+        with:
+          context: ./BellSoft-Liberica-java${{ matrix.tag }}/amd64
+          file: ./BellSoft-Liberica-java${{ matrix.tag }}/amd64/Dockerfile
+          platforms: linux/amd64
+          push: true
+          tags: |
+            ghcr.io/mg8853/yolks_amd64:bellsoft-liberica-java${{ matrix.tag }}-amd64
 
 
       - name: Build&Push(aarch64)-Java21
