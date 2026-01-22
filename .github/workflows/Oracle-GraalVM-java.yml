@@ -1,4 +1,4 @@
-name: build OracleGraalVMEEJava
+name: build OracleGraalVMJava
 on:
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -11,7 +11,7 @@ on:
       - Oracle-GraalVM-java25/**
 jobs:
   push:
-    name: "yolks:oracle-graalvm-ee-java${{ matrix.tag }}/${{ matrix.arch }}"
+    name: "yolks:oracle-graalvm-java${{ matrix.tag }}/${{ matrix.arch }}"
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
