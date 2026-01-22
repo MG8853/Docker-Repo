@@ -105,8 +105,9 @@
 * [microsoft-azulprime-java21 (amd64)](/Microsoft-AzulPrime-java21/amd64)
   * `ghcr.io/mg8853/yolks_amd64:microsoft-azulprime-java21-amd64`
 
-* [microsoft-azulprime-java25 (amd64)](/Microsoft-AzulPrime-java21/amd64)
-  * `ghcr.io/mg8853/yolks_amd64:microsoft-azulprime-java25-amd64`
+[//]: # (* [microsoft-azulprime-java25 &#40;amd64&#41;]&#40;/Microsoft-AzulPrime-java21/amd64&#41;)
+
+[//]: # (  * `ghcr.io/mg8853/yolks_amd64:microsoft-azulprime-java25-amd64`)
 
 ### Oracle-GraalVM-EE
 
