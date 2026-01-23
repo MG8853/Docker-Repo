@@ -8,22 +8,48 @@
 
 # JDK(Java)
 
-### OpenJDK
+### OpenJDK (DEPRECATED)
 
-* [openjdk-java8 (amd64 & aarch64)](/OpenJDK-java8)
-  * `ghcr.io/mg8853/yolks:openjdk-java8`
+[//]: # (* [openjdk-java8 &#40;amd64 & aarch64&#41;]&#40;/OpenJDK-java8&#41;)
 
-* [openjdk-java11 (amd64 & aarch64)](/OpenJDK-java11)
-  * `ghcr.io/mg8853/yolks:openjdk-java11`
+[//]: # (  * `ghcr.io/mg8853/yolks:openjdk-java8`)
 
-* [openjdk-java17 (amd64 & aarch64)](/OpenJDK-java17)
-  * `ghcr.io/mg8853/yolks:openjdk-java17`
+[//]: # ()
+[//]: # (* [openjdk-java11 &#40;amd64 & aarch64&#41;]&#40;/OpenJDK-java11&#41;)
 
-* [openjdk-java21 (amd64 & aarch64)](/OpenJDK-java21)
-  * `ghcr.io/mg8853/yolks:openjdk-java21`
+[//]: # (  * `ghcr.io/mg8853/yolks:openjdk-java11`)
 
-* [openjdk-java25 (amd64 & aarch64)](/OpenJDK-java25)
-  * `ghcr.io/mg8853/yolks:openjdk-java25`
+[//]: # ()
+[//]: # (* [openjdk-java17 &#40;amd64 & aarch64&#41;]&#40;/OpenJDK-java17&#41;)
+
+[//]: # (  * `ghcr.io/mg8853/yolks:openjdk-java17`)
+
+[//]: # ()
+[//]: # (* [openjdk-java21 &#40;amd64 & aarch64&#41;]&#40;/OpenJDK-java21&#41;)
+
+[//]: # (  * `ghcr.io/mg8853/yolks:openjdk-java21`)
+
+[//]: # ()
+[//]: # (* [openjdk-java25 &#40;amd64 & aarch64&#41;]&#40;/OpenJDK-java25&#41;)
+
+[//]: # (  * `ghcr.io/mg8853/yolks:openjdk-java25`)
+
+### Eclipse-Temurin
+
+* [eclipse-temurin-java8 (amd64 & aarch64)](/Eclipse-Temurin-java8)
+  * `ghcr.io/mg8853/yolks:eclipse-temurin-java8`
+
+* [eclipse-temurin-java11 (amd64 & aarch64)](/Eclipse-Temurin-java11)
+  * `ghcr.io/mg8853/yolks:eclipse-temurin-java11`
+
+* [eclipse-temurin-java17 (amd64 & aarch64)](/Eclipse-Temurin-java17)
+  * `ghcr.io/mg8853/yolks:eclipse-temurin-java17`
+
+* [eclipse-temurin-java21 (amd64 & aarch64)](/Eclipse-Temurin-java21)
+  * `ghcr.io/mg8853/yolks:eclipse-temurin-java21`
+
+* [eclipse-temurin-java25 (amd64 & aarch64)](/Eclipse-Temurin-java25)
+  * `ghcr.io/mg8853/yolks:eclipse-temurin-java25`
 
 ### Amazon-Corretto
 
@@ -93,21 +119,56 @@
 
 ### Microsoft-AzulPrime
 
-* [microsoft-azulprime-java8 (amd64)](/Microsoft-AzulPrime-java8/amd64)
-  * `ghcr.io/mg8853/yolks_amd64:microsoft-azulprime-java8-amd64`
+* [azul-platform-prime-java8 (amd64)](/Azul-Platform-Prime-java8/amd64)
+  * `ghcr.io/mg8853/yolks_amd64:azul-platform-prime-java8-amd64`
 
-* [microsoft-azulprime-java11 (amd64)](/Microsoft-AzulPrime-java11/amd64)
-  * `ghcr.io/mg8853/yolks_amd64:microsoft-azulprime-java11-amd64`
+* [azul-platform-prime-java11 (amd64)](/Azul-Platform-Prime-java11/amd64)
+  * `ghcr.io/mg8853/yolks_amd64:azul-platform-prime-java11-amd64`
 
-* [microsoft-azulprime-java17 (amd64)](/Microsoft-AzulPrime-java17/amd64)
-  * `ghcr.io/mg8853/yolks_amd64:microsoft-azulprime-java17-amd64`
+* [azul-platform-prime-java17 (amd64)](/Azul-Platform-Prime-java17/amd64)
+  * `ghcr.io/mg8853/yolks_amd64:azul-platform-prime-java17-amd64`
 
-* [microsoft-azulprime-java21 (amd64)](/Microsoft-AzulPrime-java21/amd64)
-  * `ghcr.io/mg8853/yolks_amd64:microsoft-azulprime-java21-amd64`
+* [azul-platform-prime-java21 (amd64)](/Azul-Platform-Prime-java21/amd64)
+  * `ghcr.io/mg8853/yolks_amd64:azul-platform-prime-java21-amd64`
 
-[//]: # (* [microsoft-azulprime-java25 &#40;amd64&#41;]&#40;/Microsoft-AzulPrime-java21/amd64&#41;)
+[//]: # (* [azul-platform-prime-java25 &#40;amd64&#41;]&#40;/Microsoft-AzulPrime-java21/amd64&#41;)
 
-[//]: # (  * `ghcr.io/mg8853/yolks_amd64:microsoft-azulprime-java25-amd64`)
+[//]: # (  * `ghcr.io/mg8853/yolks_amd64:azul-platform-prime-java25-amd64`)
+
+### Azul-Zulu-OpenJDK
+
+* [azul-zulu-openjdk-java8 (amd64 & aarch64)](/Azul-Zulu-OpenJDK-java8)
+  * `ghcr.io/mg8853/yolks:azul-zulu-openjdk-java8`
+
+* [azul-zulu-openjdk-java11 (amd64 & aarch64)](/Azul-Zulu-OpenJDK-java11)
+  * `ghcr.io/mg8853/yolks:azul-zulu-openjdk-java11`
+
+* [azul-zulu-openjdk-java17 (amd64 & aarch64)](/Azul-Zulu-OpenJDK-java17)
+  * `ghcr.io/mg8853/yolks:azul-zulu-openjdk-java17`
+
+* [azul-zulu-openjdk-java21 (amd64 & aarch64)](/Azul-Zulu-OpenJDK-java21)
+  * `ghcr.io/mg8853/yolks:azul-zulu-openjdk-java21`
+
+* [azul-zulu-openjdk-java25 (amd64 & aarch64)](/Azul-Zulu-OpenJDK-java25)
+  * `ghcr.io/mg8853/yolks:azul-zulu-openjdk-java25`
+
+### SapMachine
+
+* [sapmachine-java8 (amd64 & aarch64)](/SapMachine-java8)
+  * `ghcr.io/mg8853/yolks:sapmachine-java8`
+
+* [sapmachine-java11 (amd64 & aarch64)](/SapMachine-java11)
+  * `ghcr.io/mg8853/yolks:sapmachine-java11`
+
+* [sapmachine-java17 (amd64 & aarch64)](/SapMachine-java17)
+  * `ghcr.io/mg8853/yolks:sapmachine-java17`
+
+* [sapmachine-java21 (amd64 & aarch64)](/SapMachine-java21)
+  * `ghcr.io/mg8853/yolks:sapmachine-java21`
+
+* [sapmachine-java25 (amd64 & aarch64)](/SapMachine-java25)
+  * `ghcr.io/mg8853/yolks:sapmachine-java25`
+
 
 ### Oracle-GraalVM-EE
 
