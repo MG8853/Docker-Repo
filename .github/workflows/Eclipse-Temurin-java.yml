@@ -1,4 +1,4 @@
-name: build IBM-Semeru-Runtimes-java
+name: build Eclipse-Temurin-java
 on:
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -6,14 +6,14 @@ on:
     branches:
       - master
     paths:
-      - IBM-Semeru-Runtimes-java8/**
-      - IBM-Semeru-Runtimes-java11/**
-      - IBM-Semeru-Runtimes-java17/**
-      - IBM-Semeru-Runtimes-java21/**
-      - IBM-Semeru-Runtimes-java25/**
+      - Eclipse-Temurin-java8/**
+      - Eclipse-Temurin-java11/**
+      - Eclipse-Temurin-java17/**
+      - Eclipse-Temurin-java21/**
+      - Eclipse-Temurin-java25/**
 jobs:
   push:
-    name: "yolks:ibm-semeru-runtimes-java${{ matrix.tag }}"
+    name: "yolks:eclipse-temurin-java${{ matrix.tag }}/${{ matrix.arch }}"
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
@@ -24,6 +24,9 @@ jobs:
           - '17'
           - '21'
           - '25'
+        arch:
+          - 'aarch64'
+          - 'amd64'
     steps:
       - uses: actions/checkout@v2
       - uses: docker/setup-qemu-action@v1
@@ -36,11 +39,15 @@ jobs:
           registry: ghcr.io
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GITHUBTOKEN }}
-      - uses: docker/build-push-action@v2
+
+
+      - name: Build&Push(amd64)
+        if: matrix.arch == 'amd64'
+        uses: docker/build-push-action@v2
         with:
-          context: ./IBM-Semeru-Runtimes-java${{ matrix.tag }}
-          file: ./IBM-Semeru-Runtimes-java${{ matrix.tag }}/Dockerfile
-          platforms: linux/amd64,linux/arm64
+          context: ./Eclipse-Temurin-java${{ matrix.tag }}/amd64
+          file: ./Eclipse-Temurin-java${{ matrix.tag }}/amd64/Dockerfile
+          platforms: linux/amd64
           push: true
           tags: |
-            ghcr.io/mg8853/yolks:ibm-semeru-runtimes-java${{ matrix.tag }}
+            ghcr.io/mg8853/yolks_amd64:eclipse-temurin-java${{ matrix.tag }}-amd64

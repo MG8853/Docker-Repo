@@ -1,4 +1,4 @@
-name: build OracleGraalVMEEJava
+name: build Oracle-GraalVM-EE-java
 on:
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:

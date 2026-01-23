@@ -1,0 +1,53 @@
+name: build Azul-Platform-Prime-java
+on:
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+  push:
+    branches:
+      - master
+    paths:
+      - Azul-Platform-Prime-java8/**
+      - Azul-Platform-Prime-java11/**
+      - Azul-Platform-Prime-java17/**
+      - Azul-Platform-Prime-java21/**
+      - Azul-Platform-Prime-java25/**
+jobs:
+  push:
+    name: "yolks:azul-platform-prime-java${{ matrix.tag }}/${{ matrix.arch }}"
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        tag:
+          - '8'
+          - '11'
+          - '17'
+          - '21'
+#          - '25'
+        arch:
+          - 'aarch64'
+          - 'amd64'
+    steps:
+      - uses: actions/checkout@v2
+      - uses: docker/setup-qemu-action@v1
+      - uses: docker/setup-buildx-action@v1
+        with:
+          version: "v0.5.1"
+          buildkitd-flags: --debug
+      - uses: docker/login-action@v1
+        with:
+          registry: ghcr.io
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.GITHUBTOKEN }}
+
+
+      - name: Build&Push(amd64)
+        if: matrix.arch == 'amd64'
+        uses: docker/build-push-action@v2
+        with:
+          context: ./Azul-Platform-Prime-java${{ matrix.tag }}/amd64
+          file: ./Azul-Platform-Prime-java${{ matrix.tag }}/amd64/Dockerfile
+          platforms: linux/amd64
+          push: true
+          tags: |
+            ghcr.io/mg8853/yolks_amd64:azul-platform-prime-java${{ matrix.tag }}-amd64

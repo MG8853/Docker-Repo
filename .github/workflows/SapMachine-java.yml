@@ -1,4 +1,4 @@
-name: build MicrosoftAzulPrimeJava
+name: build SapMachine-java
 on:
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -6,14 +6,14 @@ on:
     branches:
       - master
     paths:
-      - Microsoft-AzulPrime-java8/**
-      - Microsoft-AzulPrime-java11/**
-      - Microsoft-AzulPrime-java17/**
-      - Microsoft-AzulPrime-java21/**
-      - Microsoft-AzulPrime-java25/**
+      - SapMachine-java8/**
+      - SapMachine-java11/**
+      - SapMachine-java17/**
+      - SapMachine-java21/**
+      - SapMachine-java25/**
 jobs:
   push:
-    name: "yolks:microsoft-azulprime-java${{ matrix.tag }}/${{ matrix.arch }}"
+    name: "yolks:sapmachine-java${{ matrix.tag }}/${{ matrix.arch }}"
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
@@ -23,7 +23,7 @@ jobs:
           - '11'
           - '17'
           - '21'
-#          - '25'
+          - '25'
         arch:
           - 'aarch64'
           - 'amd64'
@@ -45,9 +45,9 @@ jobs:
         if: matrix.arch == 'amd64'
         uses: docker/build-push-action@v2
         with:
-          context: ./Microsoft-AzulPrime-java${{ matrix.tag }}/amd64
-          file: ./Microsoft-AzulPrime-java${{ matrix.tag }}/amd64/Dockerfile
+          context: ./SapMachine-java${{ matrix.tag }}/amd64
+          file: ./SapMachine-java${{ matrix.tag }}/amd64/Dockerfile
           platforms: linux/amd64
           push: true
           tags: |
-            ghcr.io/mg8853/yolks_amd64:microsoft-azulprime-java${{ matrix.tag }}-amd64
+            ghcr.io/mg8853/yolks_amd64:sapmachine-java${{ matrix.tag }}-amd64
