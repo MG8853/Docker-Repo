@@ -12,7 +12,7 @@ on:
       - SapMachine-java25/**
 jobs:
   push:
-    name: "yolks:sapmachine-java${{ matrix.tag }}"
+    name: "yolks:sapmachine-java${{ matrix.tag }}/${{ matrix.arch }}"
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
