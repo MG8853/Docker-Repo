@@ -6,27 +6,22 @@ on:
     branches:
       - master
     paths:
-      - SapMachine-java8/**
       - SapMachine-java11/**
       - SapMachine-java17/**
       - SapMachine-java21/**
       - SapMachine-java25/**
 jobs:
   push:
-    name: "yolks:sapmachine-java${{ matrix.tag }}/${{ matrix.arch }}"
+    name: "yolks:sapmachine-java${{ matrix.tag }}"
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
         tag:
-          - '8'
           - '11'
           - '17'
           - '21'
           - '25'
-        arch:
-          - 'aarch64'
-          - 'amd64'
     steps:
       - uses: actions/checkout@v2
       - uses: docker/setup-qemu-action@v1
@@ -41,9 +36,9 @@ jobs:
           password: ${{ secrets.GITHUBTOKEN }}
       - uses: docker/build-push-action@v2
         with:
-          context: ./IBM-Semeru-Runtimes-java${{ matrix.tag }}
-          file: ./IBM-Semeru-Runtimes-java${{ matrix.tag }}/Dockerfile
+          context: ./SapMachine-java${{ matrix.tag }}
+          file: ./SapMachine-java${{ matrix.tag }}/Dockerfile
           platforms: linux/amd64,linux/arm64
           push: true
           tags: |
-            ghcr.io/mg8853/yolks:ibm-semeru-runtimes-java${{ matrix.tag }}
+            ghcr.io/mg8853/yolks:sapmachine-java${{ matrix.tag }}
