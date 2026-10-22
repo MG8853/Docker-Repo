@@ -13,7 +13,7 @@ on:
       - Azul-Zulu-OpenJDK-java25/**
 jobs:
   push:
-    name: "yolks:azul-zulu-openjdk-java${{ matrix.tag }}"
+    name: "yolks:azul-zulu-openjdk-java${{ matrix.tag }}/${{ matrix.arch }}"
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
