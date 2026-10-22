@@ -13,7 +13,7 @@ on:
       - Eclipse-Temurin-java25/**
 jobs:
   push:
-    name: "yolks:eclipse-temurin-java${{ matrix.tag }}"
+    name: "yolks:eclipse-temurin-java${{ matrix.tag }}/${{ matrix.arch }}"
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
