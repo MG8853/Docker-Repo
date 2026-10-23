@@ -17,11 +17,20 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        tag:
-          - '11'
-          - '17'
-          - '21'
-          - '25'
+        # sapmachine:11 / sapmachine:17 は Docker Hub で linux/amd64 のみ提供されている
+        include:
+          - tag: '11'
+            arch: 'amd64'
+            platforms: linux/amd64
+          - tag: '17'
+            arch: 'amd64'
+            platforms: linux/amd64
+          - tag: '21'
+            arch: 'amd64,arm64'
+            platforms: linux/amd64,linux/arm64
+          - tag: '25'
+            arch: 'amd64,arm64'
+            platforms: linux/amd64,linux/arm64
     steps:
       - uses: actions/checkout@v2
       - uses: docker/setup-qemu-action@v1
@@ -38,7 +47,7 @@ jobs:
         with:
           context: ./SapMachine-java${{ matrix.tag }}
           file: ./SapMachine-java${{ matrix.tag }}/Dockerfile
-          platforms: linux/amd64,linux/arm64
+          platforms: ${{ matrix.platforms }}
           push: true
           tags: |
             ghcr.io/mg8853/yolks:sapmachine-java${{ matrix.tag }}
